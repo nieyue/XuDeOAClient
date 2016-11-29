@@ -1,0 +1,55 @@
+<topbar></topbar>
+	<!-- 巨幕 -->
+	<div class="jumbotron mock-img-jumbotron" >
+  		<div class="container seller-formdiv ">
+  			<!-- sellerLogin -->
+			<form   *ngIf="!alreadyLogin">
+			<div class=" text-center">
+			<label  class="text-danger"></label>
+			</div>
+				<div class="comment-input-margin">
+					
+					 <input
+						type="tel" class="comment-input" 
+						placeholder="手机">
+				</div>
+				<div class="comment-input-margin">
+					 <input
+						type="password" class="comment-input"
+						placeholder="密码">
+				</div>
+				<!--<div class="checkbox">
+					<label> 
+					<input type="checkbox" id="autoLogin" checked="checked">自动登录
+					</label>
+				</div>-->
+				<div class="form-group">
+				<button type="button" class="btn btn-success btn-block"  (click)="login()" [disabled]="loginDisabled" >{{loginValue}}</button>
+				</div>							
+			
+			</form>
+  			<!-- end sellerLogin -->
+  			<!-- sellerLogining -->
+  			<form   *ngIf="alreadyLogin"> 
+			<div class="form-group text-center">
+			<label  class="text-danger hidden"></label>
+			</div>
+				<div class="form-group text-center">
+					 <!--<img  class="img-circle" style="width:50px;height:50px;" src="/resources/img/preLoding.jpg"/>-->
+					 <i class="glyphicon glyphicon-user" style="width:100px;height:100px;background-color:#ccc;color:white;border-radius:50px;line-height:100px;font-size:4rem"></i>
+				</div>
+				<!--<div class="form-group">
+				<div class="text-center alert alert-success" >这个商家很懒，还没名字~……~</div>
+				</div>-->
+				
+				<div class="button-group">
+				<button type="button"  class="btn btn-success btn-block" (click)="goMain()">进入后台</button>
+				<button type="button" class="btn btn-danger btn-block" (click)="loginOut()">退出登录</button>
+				</div>				
+			</form>
+  			<!-- end sellerLogining -->
+		</div>
+	</div>
+	<!-- end巨幕 -->
+
+<footer></footer>

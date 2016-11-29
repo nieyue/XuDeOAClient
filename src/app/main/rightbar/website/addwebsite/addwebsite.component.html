@@ -1,0 +1,25 @@
+<!-- 添加页面按钮 -->
+<button class="btn btn-lg btn-info" routerLink="/main/website/listwebsite" routerLinkActive="active"  style="margin:30px 0;" >&lt;网站列表</button>
+<!-- 添加页面按钮end -->
+<!-- 增加新闻 -->
+	<form>
+    <label for="addNewsTitle" class="text-info">※网站名称（必填）</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input" (model)="addWebsiteName"  placeholder="输入网站名称">
+  </div>
+    <label for="addNewsType" class="text-info">※网站类型（必填）</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input" (model)="addWebsiteType"  placeholder="输入网站类型">
+  </div>
+    <label for="addNewsContent" class="text-info">※网站URL（必填）</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" (model)="addWebsiteURL"  placeholder="输入http://开头网站">
+  </div>
+    <label for="addNewsContent" class="text-info">※备注</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" (model)="addWebsiteRemark"  placeholder="输入网站备注">
+  </div>
+  <button type="button" class="btn btn-lg btn-info" ng-click="addWebsiteSubmit()">保存提交</button>
+</form>
+<!-- 增加新闻 end-->
+<!--<button (click)="mainCLick()">main button</button>-->
