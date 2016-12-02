@@ -11,131 +11,78 @@
     </span>
 	<div class="media-body">
 		<h4 class="media-heading">&#12288;</h4>
-		<h4 class="media-heading">登录账号:{{channel.name||'无'}}</h4>
-		<h4>注册时间:{{channel.create_time || '2016-11-17 15:22:00' | date:"yyyy-MM-dd HH:mm:ss"}}</h4>
-		<h4>我的金额:<span class="text-danger">{{channel.money||0.0}}</span>元</h4>
+		<h4 class="media-heading">姓名:{{admin.name||'无'}}</h4>
+		<h4>注册时间:{{admin.create_date || '--' }}</h4>
+		<h4>最后登录时间:<span class="text-info">{{admin.last_login_date||'--'}}</span></h4>
 	</div>
 </div>
 <div class="seller-notes-body">   
   <!-- 保存个人信息 -->
-	<div onmouseover="this.style.cursor='pointer'" class="seller-notes-body-wrap" (click)="showChannelInfo()">
+	<div onmouseover="this.style.cursor='pointer'" class="seller-notes-body-wrap" (click)="showAdminInfo()">
 			<h4 class="seller-notes-body-title">个人信息
 			<span class="seller-notes-body-time ">个人信息是验证个人的重要信息。</span>
 			</h4>
     </div>
-	<div *ngIf="showChannelInfoWrap" class="seller-notes-body-article" style="text-indent:0;">
-	<form (ngSubmit)="saveChannelInfo()"  novalidate #channelInfoForm="ngForm"  >
-<label  class="text-default">※身份证</label>
-  <div class=" comment-input-margin">
-    <input type="text" class=" comment-input" [disabled]="isDisabledChannelInfo"
-		 pattern="^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$"  [(ngModel)]="channel.identityCards" #identityCards="ngModel" name="identityCards" required  placeholder="输入身份证">
-		<span class="text-danger alert alert-danger " [hidden]="identityCards.valid || identityCards.pristine"><i class="glyphicon glyphicon-info-sign"></i>身份证15或18位</span>
-	</div>
-    <label  class="text-default">※QQ</label>
+	<div *ngIf="showAdminInfoWrap" class="seller-notes-body-article" style="text-indent:0;">
+	<form (ngSubmit)="saveAdminInfo()"  novalidate #adminInfoForm="ngForm"  >
+    <label  class="text-default">姓名</label>
   <div class="comment-input-margin ">
-    <input  type="text" class="comment-input" [disabled]="isDisabledChannelInfo"
-		 pattern="^[1-9][0-9]{4,9}$" #qq="ngModel" required [(ngModel)]="channel.qq" name="qq" placeholder="输入QQ">
-  <span class="text-danger alert alert-danger " [hidden]="qq.valid || qq.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确的QQ号码</span>
+    <input  type="text" class="comment-input" [disabled]="isDisabledAdminInfo"
+		 minlength="2" maxlength="16" #name="ngModel" required [(ngModel)]="admin.name" name="name" placeholder="输入姓名">
+  <span class="text-danger alert alert-danger " [hidden]="name.valid || name.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
 	</div>
-    <label  class="text-default">※邮箱</label>
+    <label  class="text-default">邮箱</label>
   <div class="comment-input-margin">
-    <input type="text" class="comment-input" [disabled]="isDisabledChannelInfo"
-		 pattern="^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$" #mailBox="ngModel" required [(ngModel)]="channel.mailBox" name="mailBox" placeholder="输入邮箱">
-  <span class="text-danger alert alert-danger " [hidden]="mailBox.valid || mailBox.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确的邮箱</span>
+    <input type="text" class="comment-input" [disabled]="isDisabledAdminInfo"
+		 pattern="^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$" #email="ngModel" required [(ngModel)]="admin.email" name="email" placeholder="输入邮箱">
+  <span class="text-danger alert alert-danger " [hidden]="email.valid || email.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确的邮箱</span>
   </div>
-    <label  class="text-default">※电话</label>
-  <div class="comment-input-margin">
-    <input type="text" class="comment-input" [disabled]="isDisabledChannelInfo"
-		pattern="^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$" #cellPhone="ngModel" required [(ngModel)]="channel.cellPhone" name="cellPhone" placeholder="输入电话号码">
-  <span class="text-danger alert alert-danger " [hidden]="cellPhone.valid || cellPhone.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确的手机号码</span>
+<label  class="text-default">手机号</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input" [disabled]="isDisabledAdminInfo"
+		 pattern="^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"  [(ngModel)]="admin.cell_phone" #cell_phone="ngModel" name="cell_phone" required  placeholder="输入手机号">
+		<span class="text-danger alert alert-danger " [hidden]="cell_phone.valid || cell_phone.pristine"><i class="glyphicon glyphicon-info-sign"></i>输入正确手机号码</span>
 	</div>
+    <label  class="text-default">职位</label>
+  <div class="comment-input-margin">
+    <input type="text" class="comment-input" [disabled]="true" value="{{role.name||'普通员工'}}">
+ 	</div>
 	<div class="comment-input-margin">
-  <button type="submit" class="btn  btn-danger comment-input"  [disabled]="!channelInfoForm.valid || channelInfoSubmitDisabled" >{{channelInfoSubmitValue}}</button>
+  <button type="submit" class="btn  btn-danger comment-input"  [disabled]="!adminInfoForm.valid || adminInfoSubmitDisabled" >{{adminInfoSubmitValue}}</button>
   </div>
 </form>
-    <label  class="text-default" *ngIf="isDisabledChannelInfo && approvalStatusChannelInfo==''">为账户安全着想，需申请修改审批！</label>
-  <div class="comment-input-margin" *ngIf="isDisabledChannelInfo && approvalStatusChannelInfo==''">
-  <button type="button" class="btn  btn-danger comment-input" (click)="applyUpdateChannelInfo()" >申请修改</button>
-	</div>
-    <label  class="text-info" *ngIf="isDisabledChannelInfo && approvalStatusChannelInfo=='审核中'">审核中！请耐心等待！</label>
-    <label  class="text-success" *ngIf="!isDisabledChannelInfo && approvalStatusChannelInfo=='同意'">审核通过，请完成修改！</label>
-    <label  class="text-danger" *ngIf="isDisabledChannelInfo && approvalStatusChannelInfo=='驳回'">审核不通过！</label>
-  <button type="button" class="btn  btn-danger" (click)="reApplyUpdateChannelInfo()" *ngIf="isDisabledChannelInfo && approvalStatusChannelInfo=='驳回'" >重新申请</button>
 </div>
 <!-- 保存个人信息 end-->
 
 <!-- 修改密码 -->
-	<div onmouseover="this.style.cursor='pointer'" class="seller-notes-body-wrap" (click)="changeChannelPassword()">
+	<div onmouseover="this.style.cursor='pointer'" class="seller-notes-body-wrap" (click)="changePassword()">
 			<h4 class="seller-notes-body-title">修改密码
 			<span class="seller-notes-body-time ">安全性高的密码可以使帐号更安全。建议您定期更换密码，设置一个包含字母，符号或数字中至少两项且长度超过6位的密码。</span>
 			</h4>
     </div>
-			<div *ngIf="showChannelPasswordWrap" class="seller-notes-body-article" style="text-indent:0;">
-	<form (ngSubmit)="channelPasswordSubmit()"  novalidate #channelPasswordForm="ngForm">
-<label  class="text-default">※原始密码（必填）</label>
+			<div *ngIf="showPasswordWrap" class="seller-notes-body-article" style="text-indent:0;">
+	<form (ngSubmit)="passwordSubmit()"  novalidate #passwordForm="ngForm">
+<label  class="text-default">原始密码（必填）</label>
   <div class=" comment-input-margin">
-    <input type="text" class=" comment-input" [(ngModel)]="channel.oldChannelPassword" required minlength="6" maxlength="16" #oldChannelPassword="ngModel" name="oldChannelPassword"  placeholder="输入原始密码">
-  <span class="text-danger alert alert-danger " [hidden]="oldChannelPassword.valid || oldChannelPassword.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确原始密码</span>
+    <input type="text" class=" comment-input" [(ngModel)]="  adminPassword.oldPassword" required minlength="6" maxlength="16" #oldPassword="ngModel" name="oldPassword"  placeholder="输入原始密码">
+  <span class="text-danger alert alert-danger " [hidden]="oldPassword.valid || oldPassword.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确原始密码</span>
   </div>
-    <label  class="text-default">※新密码（必填）</label>
+    <label  class="text-default">新密码（必填）</label>
   <div class="comment-input-margin ">
-    <input type="password" class="comment-input" [(ngModel)]="channel.newChannelPassword" required minlength="6" maxlength="16" #newChannelPassword="ngModel" name="newChannelPassword" placeholder="输入新密码">
- <span class="text-danger alert alert-danger " [hidden]="newChannelPassword.valid || newChannelPassword.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确新密码</span>
+    <input type="password" class="comment-input" [(ngModel)]="adminPassword.newPassword" required minlength="6" maxlength="16" #newPassword="ngModel" name="newPassword" placeholder="输入新密码">
+ <span class="text-danger alert alert-danger " [hidden]="newPassword.valid || newPassword.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确新密码</span>
   </div>
-    <label  class="text-default">※确认密码（必填）</label>
+    <label  class="text-default">确认密码（必填）</label>
   <div class="comment-input-margin">
-    <input type="password" class="comment-input" [(ngModel)]="channel.doubleChannelPassword" required minlength="6" maxlength="16" #doubleChannelPassword="ngModel" name="doubleChannelPassword" placeholder="输入确认密码">
- <span class="text-danger alert alert-danger " [hidden]="(channel.doubleChannelPassword==channel.newChannelPassword) &&( doubleChannelPassword.valid || doubleChannelPassword.pristine)"><i class="glyphicon glyphicon-info-sign"></i>两次新密码必须一致</span> 
+    <input type="password" class="comment-input" [(ngModel)]="adminPassword.renewPassword" required minlength="6" maxlength="16" #renewPassword="ngModel" name="renewPassword" placeholder="输入确认密码">
+ <span class="text-danger alert alert-danger " [hidden]="(adminPassword.renewPassword==adminPassword.newPassword) &&( renewPassword.valid || renewPassword.pristine)"><i class="glyphicon glyphicon-info-sign"></i>两次新密码必须一致</span> 
   </div>
 	<div class="comment-input-margin">
-  <button type="submit" class="btn  btn-danger comment-input" [disabled]="(channel.doubleChannelPassword!=channel.newChannelPassword) ||(!channelPasswordForm.valid || channelPasswordSubmitDisabled)" >{{channelPasswordSubmitValue}}</button>
+  <button type="submit" class="btn  btn-danger comment-input" [disabled]="(adminPassword.renewPassword!=adminPassword.newPassword) ||(!passwordForm.valid || passwordSubmitDisabled)" >{{passwordSubmitValue}}</button>
   </div>
 </form>
 </div>
 <!-- 修改密码 end-->
-<!-- 财务信息 -->
-	<div onmouseover="this.style.cursor='pointer'" class="seller-notes-body-wrap" (click)="saveChannelFinancial()">
-			<h4 class="seller-notes-body-title">财务信息
-			<span class="seller-notes-body-time ">真实的财务信息能及时的保证合作双方的金钱交易。</span>
-			</h4>
-    </div>
-			<div *ngIf="showChannelFinancialWrap" class="seller-notes-body-article" style="text-indent:0;">
-	<form (ngSubmit)="channelFinancialSubmit()"  novalidate #channelFinancialForm="ngForm">
-<label  class="text-default">收款人</label>
-  <div class=" comment-input-margin">
-    <input type="text" class=" comment-input" [disabled]="isDisabledChannelFinancial" [(ngModel)]="channel.payee " required minlength="2" maxlength="16" #payee ="ngModel" name="payee"  placeholder="输入收款人姓名">
-  <span class="text-danger alert alert-danger " [hidden]="payee.valid || payee.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确收款人姓名</span>
-  </div>
-    <label  class="text-default">开户银行</label>
-  <div class="comment-input-margin ">
-    <input type="password" class="comment-input" [disabled]="isDisabledChannelFinancial" [(ngModel)]="channel.bank" required minlength="2" maxlength="20" #bank="ngModel" name="bank" placeholder="输入开户银行">
- <span class="text-danger alert alert-danger " [hidden]="bank.valid || bank.pristine"><i class="glyphicon glyphicon-info-sign"></i>请填写正确开户银行</span>
-  </div>
-    <label  class="text-default">银行账号</label>
-  <div class="comment-input-margin">
-    <input type="password" class="comment-input" [disabled]="isDisabledChannelFinancial" [(ngModel)]="channel.account" required pattern="^[0-9]{16,19}$" #account="ngModel" name="account" placeholder="输入银行账号">
- <span class="text-danger alert alert-danger " [hidden]="( account.valid || account.pristine)"><i class="glyphicon glyphicon-info-sign"></i>请填写正确银行账号</span> 
-  </div>
-    <label  class="text-default">开户地址</label>
-  <div class="comment-input-margin">
-    <input type="password" class="comment-input" [disabled]="isDisabledChannelFinancial" [(ngModel)]="channel.address" required minlength="6" maxlength="30" #address="ngModel" name="address" placeholder="输入开户银行地址">
- <span class="text-danger alert alert-danger " [hidden]="( address.valid || address.pristine)"><i class="glyphicon glyphicon-info-sign"></i>请填写正确开户银行地址</span> 
-  </div>
-	<div class="comment-input-margin">
-  <button type="submit" class="btn  btn-danger comment-input" [disabled]=" !channelFinancialForm.valid || channelFinancialSubmitDisabled" >{{channelFinancialSubmitValue}}</button>
-  </div>
-</form>
-    <label  class="text-default" *ngIf="isDisabledChannelFinancial && approvalStatusChannelFinancial==''">为账户安全着想，需申请修改审批！</label>
-  <div class="comment-input-margin" *ngIf="isDisabledChannelFinancial && approvalStatusChannelFinancial==''">
-  <button type="button" class="btn  btn-danger comment-input" (click)="applyUpdateChannelFinancial()" >申请修改</button>
-	</div>
-    <label  class="text-info" *ngIf="isDisabledChannelFinancial && approvalStatusChannelFinancial=='审核中'">审核中！请耐心等待！</label>
-    <label  class="text-success" *ngIf="!isDisabledChannelFinancial && approvalStatusChannelFinancial=='同意'">审核通过，请完成修改！</label>
-    <label  class="text-danger" *ngIf="isDisabledChannelFinancial && approvalStatusChannelFinancial=='驳回'">审核不通过！</label>
-  <button type="button" class="btn  btn-danger" (click)="reApplyUpdateChannelFinancial()" *ngIf="isDisabledChannelFinancial && approvalStatusChannelFinancial=='驳回'" >重新申请</button>
-</div>
-<!-- 财务信息 end-->
-            
             
 </div>
            

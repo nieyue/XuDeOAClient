@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { MainRoutingModule} from '../main/main-routing.module';
 import { MycommonModule }    from '../common/mycommon.module';
 
@@ -21,11 +22,14 @@ import { AdvertisementComponent }   from '../main/rightbar/advertisement/adverti
 
 import { WebsiteListService } from '../service/website.service';//网站服务
 import { AdvertisementListService } from '../service/advertisement.service';//广告位服务
+import { AuthJurisdictionService } from '../service/authjurisdiction.service';//权限服务
 
 @NgModule({
   imports: [
       CommonModule,
       FormsModule,
+      HttpModule,
+      JsonpModule,
       MainRoutingModule,
       MycommonModule
    ],
@@ -44,6 +48,7 @@ import { AdvertisementListService } from '../service/advertisement.service';//�
     AdvertisementComponent
     ],
     providers:[
+      AuthJurisdictionService,
       WebsiteListService,
       AdvertisementListService
     ]

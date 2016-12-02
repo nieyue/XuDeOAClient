@@ -78,6 +78,13 @@ var myUtils = {
 			});
 	},
 	/**
+	 * 设置域名
+	 * 
+	 */
+	getDomain:function(){
+		return "http://localhost";
+	},
+	/**
 	 * 如果没选择店铺就404
 	 * 
 	 */

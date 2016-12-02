@@ -7,15 +7,16 @@ import { IndexComponent }   from './index/index.component';//首页组件
 
 import { ErrorComponent }   from './error/error.component';//error页面
 
+import { AuthLoginService }   from './service/authlogin.service';//是否登录服务
 
 const appRoutes: Routes = [
   { path: 'index', component: IndexComponent },
   
   { path: 'main' ,
-  loadChildren:'./main/main.module#MainModule'
+  loadChildren:'./main/main.module#MainModule',
+  canActivate: [AuthLoginService]
   },
-  { path: '', component: IndexComponent },
-  { path: '**', component: ErrorComponent }
+  { path: '', component: IndexComponent }
 ];
 @NgModule({
   imports: [

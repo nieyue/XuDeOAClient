@@ -12,11 +12,13 @@ import { ListwebsiteComponent }   from '../main/rightbar/website/listwebsite/lis
 import {PersonComponent }   from '../main/rightbar/person/person.component';//主页右边个人信息组件
 import { AdvertisementComponent }   from '../main/rightbar/advertisement/advertisement.component';//主页右边广告组件
 
+import { AuthJurisdictionService } from '../service/authjurisdiction.service';//权限服务
+
 const mainRoutes: Routes = [ 
-     { path: '' ,component: MainComponent, 
+     { path: '' ,component: MainComponent,
   children:[
 {path:'person',component:PersonComponent},
-{path:'admin',component:AdminComponent,
+{path:'admin',component:AdminComponent,canActivate:[AuthJurisdictionService],
     children:[
       {path:'listrole',component:ListroleComponent},
       {path:'listjurisdiction',component:ListjurisdictionComponent},

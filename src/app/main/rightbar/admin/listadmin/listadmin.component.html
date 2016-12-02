@@ -1,1 +1,80 @@
-listadmin
+<!-- 添加员工按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListAdmin()"   style="margin:30px 0;" >{{toggleListAdminValue}}</div>
+<!-- 添加员工按钮end -->
+
+<!-- 增加员工 -->
+	<form *ngIf="toggleListAdminValue=='员工列表'" (ngSubmit)="saveAdmin()"  novalidate #saveAdminForm="ngForm">
+    <label class="text-info">姓名</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="16"
+    #name="ngModel" required [(ngModel)]="admin.name" name="name"
+      placeholder="输入姓名">
+      <span class="text-danger alert alert-danger " [hidden]="name.valid || name.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-info">电话号码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+     pattern="^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"
+	 #cell_phone="ngModel" required [(ngModel)]="admin.cell_phone" name="cell_phone"
+      placeholder="输入电话号码">
+      <span class="text-danger alert alert-danger " [hidden]="cell_phone.valid || cell_phone.pristine"><i class="glyphicon glyphicon-info-sign"></i>手机号码不正确</span>
+  </div>
+    <label  class="text-info">email</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" 
+    pattern="^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$"
+	 #email="ngModel" required [(ngModel)]="admin.email" name="email"
+    placeholder="输入email">
+    <span class="text-danger alert alert-danger " [hidden]="email.valid || email.pristine"><i class="glyphicon glyphicon-info-sign"></i>email不正确</span>
+  </div>
+  <label  class="text-info">职位</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="admin.role_id" (ngModelChange)="admin.role_id=$event" 
+   #role_id="ngModel" required  name="role_id"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let role of roleList" [value]='role.role_id'>{{role.name}}</option>  
+</select>
+  </div>
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !saveAdminForm.valid " >保存提交</button>
+</form>
+<!-- 增加员工 end-->
+<!-- 页面列表 -->
+<table class="table text-center table-striped" style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListAdminValue=='添加员工'" >
+
+ <thead>
+      <tr class="myactive"> 
+         <th class="text-center">网站名称</th>
+         <th class="text-center">网站类型</th>
+         <th class="text-center">网站url</th>
+         <th class="text-center">网站备注</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody *ngIf="haveWebsiteList">
+      <tr class="myactive" *ngFor="let website of websiteList"> 
+         <td class="text-center">{{website.name}}</td>
+         <td class="text-center">{{website.type}}</td>
+         <td class="text-center"><a [href]="website.url" target="view_window">{{website.url}}</a></td>
+         <td class="text-center">{{website.remark}}</td>
+         <td class="text-center">{{website.create_time}}</td>
+         <td class="text-center">
+         	<button class="btn btn-warning" (click)="websiteUpdate(website)">编辑</button>
+         	<button class="btn btn-danger" (click)="websiteDel(website)">删除</button>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+   <div *ngIf="toggleListAdminValue=='添加员工'" class="text-center">
+       还没有广告页面，点击上面的添加广告页面快速添加吧！
+   </div>
+<!-- 页面列表end -->
+<!-- 加载更多end -->
+	<a class="btn btn-default btn-block text-center" (click)="websiteMore()" *ngIf="toggleListAdminValue=='添加员工'">
+		<div>点击加载更多》</div>
+	</a>
+    <div class="text-center text-warning" *ngIf="haveWebsiteList && !haveMoreWebsiteList">没有更多了！</div>
+<!--  加载更多end -->
