@@ -89,8 +89,6 @@ passwordSubmitValue:string='保存更改';
    myUtils.myPrevToast("保存中...",()=>{
     $.post(myUtils.getDomain()+"/admin/update/password",
     {
-     
-      adminId:this.admin.admin_id,
       password:this.adminPassword.oldPassword,
       newpassword:this.adminPassword.newPassword
     },
@@ -98,12 +96,14 @@ passwordSubmitValue:string='保存更改';
        this.passwordSubmitDisabled=false;
        this.passwordSubmitValue='保存更改';
       if(data&&data.code==200){
-        this.admin.password=this.adminPassword.newPassword;
+        $.get(myUtils.getDomain()+"/admin/"+this.admin.admin_id,(d)=>{
+          this.admin.password=d.password;
         sessionStorage.setItem("admin",JSON.stringify(this.admin));
         myUtils.myPrevToast("保存成功",null,"remove");
         this.adminPassword.oldPassword="";
         this.adminPassword.newPassword="";
         this.adminPassword.renewPassword="";
+        });
       return;
       }
       if(data&&data.code==40000){

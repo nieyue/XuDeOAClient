@@ -13,6 +13,12 @@ html{
 padding-top:50px;/**消除固定导航栏的站位**/
 }
 /**
+**重写select
+*/
+select,option{
+	height:38px;
+}
+/**
 **重写navbar-default
 */
 .navbar-default{

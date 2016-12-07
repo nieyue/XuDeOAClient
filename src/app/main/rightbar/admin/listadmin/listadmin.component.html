@@ -28,6 +28,14 @@
     placeholder="输入email">
     <span class="text-danger alert alert-danger " [hidden]="email.valid || email.pristine"><i class="glyphicon glyphicon-info-sign"></i>email不正确</span>
   </div>
+  <label class="text-info">登录密码</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="6" maxlength="16"
+    #password="ngModel" required [(ngModel)]="admin.password" name="password"
+      placeholder="6-16位">
+      <span class="text-danger alert alert-danger " [hidden]="password.valid || password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
   <label  class="text-info">职位</label>
   <div class="comment-input-margin">
    <select [ngModel]="admin.role_id" (ngModelChange)="admin.role_id=$event" 
@@ -37,7 +45,9 @@
     <option *ngFor="let role of roleList" [value]='role.role_id'>{{role.name}}</option>  
 </select>
   </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
   <button type="submit" class="btn btn-lg btn-info" [disabled]=" !saveAdminForm.valid " >保存提交</button>
+  </div>
 </form>
 <!-- 增加员工 end-->
 <!-- 页面列表 -->
@@ -45,31 +55,38 @@
 
  <thead>
       <tr class="myactive"> 
-         <th class="text-center">网站名称</th>
-         <th class="text-center">网站类型</th>
-         <th class="text-center">网站url</th>
-         <th class="text-center">网站备注</th>
+         <th class="text-center">姓名</th>
+         <th class="text-center">手机号</th>
+         <th class="text-center">邮箱</th>
+         <th class="text-center">职位</th>
          <th class="text-center">创建时间</th>
+         <th class="text-center">最后登录时间</th>
          <th class="text-center">操作</th>
       </tr>
    </thead>
-   <tbody *ngIf="haveWebsiteList">
-      <tr class="myactive" *ngFor="let website of websiteList"> 
-         <td class="text-center">{{website.name}}</td>
-         <td class="text-center">{{website.type}}</td>
-         <td class="text-center"><a [href]="website.url" target="view_window">{{website.url}}</a></td>
-         <td class="text-center">{{website.remark}}</td>
-         <td class="text-center">{{website.create_time}}</td>
+   <tbody *ngIf="adminList.length > 0">
+      <tr class="myactive" *ngFor="let admin of adminList"> 
+         <td class="text-center">{{admin.name}}</td>
+         <td class="text-center">{{admin.cell_phone}}</td>
+         <td class="text-center">{{admin.email}}</td>
+         <!--<td class="text-center">{{admin.role_id}}</td>-->
+         <td class="text-center" >
+           <span *ngFor="let role of roleList">
+             {{role.role_id==admin.role_id?role.name:''}}
+           </span>
+           </td>
+         <td class="text-center">{{admin.create_date}}</td>
+         <td class="text-center">{{admin.last_login_date}}</td>
          <td class="text-center">
-         	<button class="btn btn-warning" (click)="websiteUpdate(website)">编辑</button>
-         	<button class="btn btn-danger" (click)="websiteDel(website)">删除</button>
+         	<button class="btn btn-warning" (click)="updateAdmin(admin)">编辑</button>
+         	<button class="btn btn-danger" (click)="delAdmin(admin)">删除</button>
          </td>
       </tr>
      
    </tbody>
 </table>
-   <div *ngIf="toggleListAdminValue=='添加员工'" class="text-center">
-       还没有广告页面，点击上面的添加广告页面快速添加吧！
+   <div *ngIf="toggleListAdminValue=='添加员工' && adminList.length <= 0" class="text-center">
+       还没有员工，点击上面的添加员工快速添加吧！
    </div>
 <!-- 页面列表end -->
 <!-- 加载更多end -->
