@@ -1,0 +1,109 @@
+<!-- 添加手机按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListPhone()"   style="margin:30px 0;" >{{toggleListPhoneValue}}</div>
+<!-- 添加手机按钮end -->
+<!-- 增加手机 -->
+	<form *ngIf="toggleListPhoneValue=='手机列表'" (ngSubmit)="savePhone()"  novalidate #savePhoneForm="ngForm">
+    <label class="text-info">手机类型</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="16"
+    #type="ngModel" required [(ngModel)]="phone.type" name="type"
+      placeholder="输入手机类型">
+      <span class="text-danger alert alert-danger " [hidden]="type.valid || type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-info">手机编号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="16"
+	 #number="ngModel" required [(ngModel)]="phone.number" name="number"
+      placeholder="输入手机编号">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label  class="text-info">手机信息国际移动设备身份码(IEMI)</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" 
+    minlength="2" maxlength="64"
+	 #iemi="ngModel" required [(ngModel)]="phone.iemi" name="iemi"
+    placeholder="输入iemi">
+    <span class="text-danger alert alert-danger " [hidden]="iemi.valid || iemi.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+  <label class="text-info">手机信息物理地址(mac)</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="17" maxlength="17"
+    #mac="ngModel" required [(ngModel)]="phone.mac" name="mac"
+      placeholder="mac">
+      <span class="text-danger alert alert-danger " [hidden]="mac.valid || mac.pristine"><i class="glyphicon glyphicon-info-sign"></i>17位</span>
+  </div>
+  <label class="text-info">在库情况</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="64"
+    #inventory_situation="ngModel" required [(ngModel)]="phone.inventory_situation" name="inventory_situation"
+      placeholder="在库情况">
+      <span class="text-danger alert alert-danger " [hidden]="inventory_situation.valid || inventory_situation.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-64位</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !savePhoneForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加手机 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showPhoneListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListPhoneValue=='添加手机' && phoneList.length > 0  && !showPhoneListIcon " >
+
+ <thead>
+      <tr class="myactive"> 
+         <th class="text-center">手机类型</th>
+         <th class="text-center">手机编号</th>
+         <th class="text-center">iemi</th>
+         <th class="text-center">mac</th>
+         <th class="text-center">在库情况</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">更新时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody *ngIf="phoneList.length > 0">
+      <tr class="myactive" *ngFor="let phone of phoneList" > 
+         <td class="text-center">{{phone.type}}</td>
+         <td class="text-center">{{phone.number}}</td>
+         <td class="text-center">{{phone.iemi}}</td>
+         <td class="text-center">{{phone.mac}}</td>
+         <td class="text-center">{{phone.inventory_situation}}</td>
+         <td class="text-center">{{phone.create_date}}</td>
+         <td class="text-center">{{phone.update_date}}</td>
+          <td class="text-center">
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id"  [disabled]="role.name=='普通员工'" (click)="updatePhone(phone)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id" [disabled]="role.name=='普通员工'"  (click)="delPhone(phone)">删除</button>
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListPhoneValue=='添加手机' &&  phoneList.length <= 0 && !showPhoneListIcon" class="text-center">
+       还没有手机，点击上面的添加手机快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListPhoneValue=='添加手机'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总手机数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-phone-update></main-rightbar-phone-update>

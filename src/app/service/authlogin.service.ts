@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare let myUtils:any;
+//登录登出服务
 @Injectable()
 export class AuthLoginService implements CanActivate {
     isLoggedIn: boolean = false;
@@ -19,6 +20,7 @@ constructor( private router: Router,private http:Http) {}
 
      private loginAdmin=myUtils.getDomain()+"/admin/login";
      private loginoutAdmin=myUtils.getDomain()+"/admin/loginout";
+     private isloginAdmin=myUtils.getDomain()+"/admin/islogin";
 
 
   login(adminName:String,password:String): Observable< Admin>{
@@ -36,6 +38,8 @@ constructor( private router: Router,private http:Http) {}
    checkLogin(url: string): boolean {
   if(JSON.parse(sessionStorage.getItem("alreadyLogin"))){
   this.isLoggedIn=Boolean(JSON.parse(sessionStorage.getItem("alreadyLogin")));
+  }else{
+    this.isLoggedIn=false;
   }
     if (this.isLoggedIn) { return true; }
   

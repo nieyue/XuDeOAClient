@@ -9,7 +9,8 @@ import { AppComponent }   from './app.component';//主组件
 import { IndexComponent }   from './index/index.component';//首页组件
 
 import { AuthLoginService }   from './service/authlogin.service';//是否登录服务
-import { AuthJurisdictionService } from './service/authjurisdiction.service';//权限服务
+import { RoleService } from './service/role.service';//角色服务
+import { PaginationService } from './service/pagination.service';//分页服务
 
 @Injectable()  
 export class CorsBrowserXhr extends BrowserXhr {  
@@ -40,7 +41,8 @@ export class CorsBrowserXhr extends BrowserXhr {
     providers:[
    { provide: BrowserXhr, useClass:CorsBrowserXhr },
 AuthLoginService,
-AuthJurisdictionService
+PaginationService,
+RoleService
     ],
   bootstrap: [
     AppComponent]

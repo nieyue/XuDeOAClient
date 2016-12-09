@@ -42,7 +42,9 @@
    #role_id="ngModel" required  name="role_id"
    >
     <option value="">请选择</option>
-    <option *ngFor="let role of roleList" [value]='role.role_id'>{{role.name}}</option>  
+    <option *ngFor="let role of roleList" [value]='role.role_id' [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >
+      {{role.name}}
+    </option>  
 </select>
   </div>
   <div class="comment-input-margin" style="margin-top:50px;">
@@ -51,7 +53,8 @@
 </form>
 <!-- 增加员工 end-->
 <!-- 页面列表 -->
-<table class="table text-center table-striped" style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListAdminValue=='添加员工'" >
+<div class='loadAnimation' *ngIf="showAdminListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListAdminValue=='添加员工' && adminList.length > 0  && !showAdminListIcon " >
 
  <thead>
       <tr class="myactive"> 
@@ -65,7 +68,8 @@
       </tr>
    </thead>
    <tbody *ngIf="adminList.length > 0">
-      <tr class="myactive" *ngFor="let admin of adminList"> 
+
+      <tr class="myactive" *ngFor="let admin of adminList" > 
          <td class="text-center">{{admin.name}}</td>
          <td class="text-center">{{admin.cell_phone}}</td>
          <td class="text-center">{{admin.email}}</td>
@@ -78,20 +82,41 @@
          <td class="text-center">{{admin.create_date}}</td>
          <td class="text-center">{{admin.last_login_date}}</td>
          <td class="text-center">
-         	<button class="btn btn-warning" (click)="updateAdmin(admin)">编辑</button>
-         	<button class="btn btn-danger" (click)="delAdmin(admin)">删除</button>
+           <!--匹配每一个管理员的角色 ，如果当前用户不为超级管理员 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="role.role_id==admin.role_id" [disabled]="role.name=='超级管理员' && sessionAdmin.role_id!=admin.role_id" (click)="updateAdmin(admin)">编辑</button>
+         	<button class="btn btn-danger" [disabled]="role.name=='超级管理员' && sessionAdmin.role_id!=admin.role_id" *ngIf="role.role_id==admin.role_id" (click)="delAdmin(admin)">删除</button>
+         </div>
          </td>
       </tr>
      
    </tbody>
 </table>
-   <div *ngIf="toggleListAdminValue=='添加员工' && adminList.length <= 0" class="text-center">
+   <div *ngIf="toggleListAdminValue=='添加员工' && adminList.length <= 0 && !showAdminListIcon" class="text-center">
        还没有员工，点击上面的添加员工快速添加吧！
    </div>
 <!-- 页面列表end -->
 <!-- 加载更多end -->
-	<a class="btn btn-default btn-block text-center" (click)="websiteMore()" *ngIf="toggleListAdminValue=='添加员工'">
+	<!--<a class="btn btn-default btn-block text-center" (click)="websiteMore()" *ngIf="toggleListAdminValue=='添加员工'">
 		<div>点击加载更多》</div>
 	</a>
-    <div class="text-center text-warning" *ngIf="haveWebsiteList && !haveMoreWebsiteList">没有更多了！</div>
+    <div class="text-center text-warning" *ngIf="haveWebsiteList && !haveMoreWebsiteList">没有更多了！</div>-->
+    <div *ngIf="toggleListAdminValue=='添加员工'" >
+
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总管理人数：{{totalNumber}}</span></li>
+    </ul>
+  
+    </div>
 <!--  加载更多end -->
+<!--更新管理员 -->
+<main-rightbar-admin-listadmin-update></main-rightbar-admin-listadmin-update>
+<!--更新管理员end -->

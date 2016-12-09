@@ -27,6 +27,9 @@ role:Role;
     this.isClick=this.leftbars[0];
     this.admin=JSON.parse(sessionStorage.getItem("admin"));
     this.role=JSON.parse(sessionStorage.getItem("role"));
+    if(this.role.name=="普通员工"){
+        this.leftbars.splice(1,1);
+    }
   }
   constructor(public router:Router){}
   checkLeftBar(leftbar){//点击菜单

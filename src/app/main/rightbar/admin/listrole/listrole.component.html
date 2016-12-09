@@ -1,38 +1,28 @@
+
 <!-- 页面列表 -->
-<table class="table text-center table-striped" style="border:2px solid #999;box-shadow:0 0 10px #999;" >
+<div class='loadAnimation' *ngIf="showRoleListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf=" roleList.length > 0  && !showRoleListIcon " >
 
  <thead>
       <tr class="myactive"> 
-         <th class="text-center">网站名称</th>
-         <th class="text-center">网站类型</th>
-         <th class="text-center">网站url</th>
-         <th class="text-center">网站备注</th>
-         <th class="text-center">创建时间</th>
+         <th class="text-center">名称</th>
+         <th class="text-center">职责</th>
+         <th class="text-center">更新时间</th>
          <th class="text-center">操作</th>
       </tr>
    </thead>
-   <tbody *ngIf="haveWebsiteList">
-      <tr class="myactive" *ngFor="let website of websiteList"> 
-         <td class="text-center">{{website.name}}</td>
-         <td class="text-center">{{website.type}}</td>
-         <td class="text-center"><a [href]="website.url" target="view_window">{{website.url}}</a></td>
-         <td class="text-center">{{website.remark}}</td>
-         <td class="text-center">{{website.create_time}}</td>
+   <tbody *ngIf="roleList.length > 0">
+      <tr class="myactive" *ngFor="let role of roleList" > 
+         <td class="text-center">{{role.name}}</td>
+         <td class="text-center">{{role.duty}}</td>
+         <td class="text-center">{{role.update_date}}</td>
          <td class="text-center">
-         	<button class="btn btn-warning" (click)="websiteUpdate(website)">编辑</button>
-         	<button class="btn btn-danger" (click)="websiteDel(website)">删除</button>
+         	<button class="btn btn-warning"  [disabled]="true" >编辑</button>
+         	<button class="btn btn-danger" [disabled]="true" >删除</button>
          </td>
       </tr>
      
    </tbody>
 </table>
-   <div *ngIf="!haveWebsiteList" class="text-center">
-       还没有广告页面，点击上面的添加广告页面快速添加吧！
-   </div>
 <!-- 页面列表end -->
-<!-- 加载更多end -->
-	<a class="btn btn-default btn-block text-center" (click)="websiteMore()" *ngIf="haveMoreWebsiteList">
-		<div>点击加载更多》</div>
-	</a>
-    <div class="text-center text-warning" *ngIf="haveWebsiteList && !haveMoreWebsiteList">没有更多了！</div>
-<!--  加载更多end -->
+

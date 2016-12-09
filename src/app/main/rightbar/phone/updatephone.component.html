@@ -1,0 +1,66 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改手机
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updatePhoneSubmit()"  novalidate #updatePhoneForm="ngForm">
+     <label class="text-info">手机类型</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="16"
+    #type="ngModel" required [(ngModel)]="phone.type" name="type"
+      placeholder="输入手机类型">
+      <span class="text-danger alert alert-danger " [hidden]="type.valid || type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-info">手机编号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="16"
+	 #number="ngModel" required [(ngModel)]="phone.number" name="number"
+      placeholder="输入手机编号">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label  class="text-info">手机信息国际移动设备身份码(IEMI)</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" 
+    minlength="2" maxlength="64"
+	 #iemi="ngModel" required [(ngModel)]="phone.iemi" name="iemi"
+    placeholder="输入iemi">
+    <span class="text-danger alert alert-danger " [hidden]="iemi.valid || iemi.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+  <label class="text-info">手机信息物理地址(mac)</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="17" maxlength="17"
+    #mac="ngModel" required [(ngModel)]="phone.mac" name="mac"
+      placeholder="mac">
+      <span class="text-danger alert alert-danger " [hidden]="mac.valid || mac.pristine"><i class="glyphicon glyphicon-info-sign"></i>17位</span>
+  </div>
+  <label class="text-info">在库情况</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="64"
+    #inventory_situation="ngModel" required [(ngModel)]="phone.inventory_situation" name="inventory_situation"
+      placeholder="在库情况">
+      <span class="text-danger alert alert-danger " [hidden]="inventory_situation.valid || inventory_situation.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-64位</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updatePhoneForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

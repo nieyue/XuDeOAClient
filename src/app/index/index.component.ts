@@ -31,8 +31,8 @@ declare let $:any;
   
 })
 export class IndexComponent implements OnInit {
-    //alreadyLogin=false;//没有登录
-    alreadyLogin=this.authLoginService.isLoggedIn;;//没有登录
+   // alreadyLogin=false;//没有登录
+    alreadyLogin=this.authLoginService.checkLogin("/");
     adminLogin={adminName:'',password:''};
     admin:Admin;
   
@@ -40,7 +40,7 @@ export class IndexComponent implements OnInit {
 
     }
 ngOnInit(){
-  this.alreadyLogin=this.authLoginService.checkLogin("/");
+  
 }
 
    
@@ -84,9 +84,10 @@ this.authLoginService.login(this.adminLogin.adminName,this.adminLogin.password).
     this.authLoginService.logout();
      //this.alreadyLogin=false;
      this.alreadyLogin=this.authLoginService.isLoggedIn;
-      sessionStorage.removeItem("alreadyLogin");
-      sessionStorage.removeItem("admin");
-      sessionStorage.removeItem("role");
+      // sessionStorage.removeItem("alreadyLogin");
+      // sessionStorage.removeItem("admin");
+      // sessionStorage.removeItem("role");
+      sessionStorage.clear();
       this.router.navigate(['/index']);
     });
    }

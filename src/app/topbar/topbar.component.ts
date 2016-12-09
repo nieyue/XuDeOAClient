@@ -20,9 +20,10 @@ export class TopbarComponent implements OnInit{
   loginOut(){
     myUtils.myLoginOut("确认退出吗?",()=>{
     this.authLoginService.logout();
-    sessionStorage.removeItem("alreadyLogin");
-     sessionStorage.removeItem("admin");
-     sessionStorage.removeItem("role");
+    // sessionStorage.removeItem("alreadyLogin");
+    //  sessionStorage.removeItem("admin");
+    //  sessionStorage.removeItem("role");
+     sessionStorage.clear();
     this.alreadyLogin=this.authLoginService.isLoggedIn;
     this.router.navigate(['/index']);
     });

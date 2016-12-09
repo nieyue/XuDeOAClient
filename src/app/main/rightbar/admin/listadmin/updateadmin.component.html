@@ -1,0 +1,65 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改管理员
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updateAdminSubmit()"  novalidate #updateAdminForm="ngForm">
+    <label class="text-info">姓名</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="16"
+    #name="ngModel" required [(ngModel)]="admin.name" name="name"
+      placeholder="输入姓名">
+      <span class="text-danger alert alert-danger " [hidden]="name.valid || name.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-info">电话号码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+     pattern="^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"
+	 #cell_phone="ngModel" required [(ngModel)]="admin.cell_phone" name="cell_phone"
+      placeholder="输入电话号码">
+      <span class="text-danger alert alert-danger " [hidden]="cell_phone.valid || cell_phone.pristine"><i class="glyphicon glyphicon-info-sign"></i>手机号码不正确</span>
+  </div>
+    <label  class="text-info">email</label>
+  <div class="comment-input-margin">
+   <input type="text" class="comment-input" 
+    pattern="^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$"
+	 #email="ngModel" required [(ngModel)]="admin.email" name="email" 
+    placeholder="输入email">
+    <span class="text-danger alert alert-danger " [hidden]="email.valid || email.pristine"><i class="glyphicon glyphicon-info-sign"></i>email不正确</span>
+  </div>
+  <label class="text-info">登录密码</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="6" maxlength="16"
+    #password="ngModel" required [(ngModel)]="admin.password" name="password"
+      placeholder="6-16位">
+      <span class="text-danger alert alert-danger " [hidden]="password.valid || password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+  <label  class="text-info">职位</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="admin.role_id" (ngModelChange)="admin.role_id=$event" 
+   #role_id="ngModel" required  name="role_id"
+   >
+    <option *ngFor="let role of roleList" [value]='role.role_id' [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >{{role.name}}</option>  
+</select>
+  </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updateAdminForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
