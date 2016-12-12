@@ -19,6 +19,14 @@ select,option{
 	height:38px;
 }
 /**
+**重写th td
+*/
+td{
+	max-width: 300px;
+	word-wrap:break-word; 
+word-break:break-all; 
+}
+/**
 **重写navbar-default
 */
 .navbar-default{
@@ -37,6 +45,7 @@ select,option{
 .alert{
 	padding:7px !important;
 	border-radius: 0;
+	margin-bottom: 0;
 }
 /**
 **重写container

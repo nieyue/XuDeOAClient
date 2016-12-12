@@ -8,6 +8,6 @@
    public password:string,//密码
    public create_date:string,//创建时间
    public last_login_date:string,//最后登录时间
-   public role_id:string,//角色id
+   public role_id:string//角色id
     ){}
 }

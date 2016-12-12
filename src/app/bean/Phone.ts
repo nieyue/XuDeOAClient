@@ -8,6 +8,6 @@
    public mac:string,//手机信息物理地址
    public inventory_situation:string,//在库情况
    public create_date:string,//创建时间
-   public update_date:string,//更新时间
+   public update_date:string//更新时间
     ){}
 }

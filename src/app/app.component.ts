@@ -21,16 +21,35 @@ export class AppComponent implements  OnInit{
 // 　　　　timeout: 3000,
 // 　　　　dataType: 'html',
 // 　　　　//请求成功后触发
-// 　　　　success: function (data) { show.append('success invoke!' + data + '<br/>'); },
+ 　//　　　success: function (data) { 
+
+ // },
 // 　　　　//请求失败遇到异常触发
  　　//　　error: function (xhr, status, e) { myUtils.myLoadingToast("错误！"); },
 // 　　　　//完成请求后触发。即在success或error触发后触发
-// 　　　　complete: function (xhr, status) { show.append('complete invoke! status:' + status+'<br/>'); },
+ 　　　　complete: function (xhr) { 
+   if(xhr.responseJSON&&xhr.responseJSON.code==40002){//手机或email已经存在
+                console.log(xhr.responseJSON)
+                 myUtils.myLoadingToast(xhr.responseJSON.msg);
+                
+                 return ;
+           }
+   if(xhr.responseJSON&&xhr.responseJSON.code==40001){
+                 myUtils.myLoadingToast("会话过期！重新登录");
+                 sessionStorage.clear();
+                 this.router.navigate(['/']);
+                 return ;
+           }
+   if(xhr.responseJSON&&xhr.responseJSON.code==40000){
+                 myUtils.myLoadingToast("请求失败！请检查！");
+                 return ;
+           }
+   },
 　　　　//发送请求前触发
  　　　　beforeSend: function (xhr) {
 // 　　　　//可以设置自定义标头
 // 　　　　xhr.setRequestHeader('Content-Type', 'application/xml;charset=utf-8');
-myUtils.myLoadingToast("加载中...");
+//myUtils.myLoadingToast("加载中...");
  　　　　},
       //  beforeSend: function(xhr) {
       //           xhr.withCredentials = true;

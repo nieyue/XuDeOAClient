@@ -8,7 +8,7 @@
          <th class="text-center">名称</th>
          <th class="text-center">职责</th>
          <th class="text-center">更新时间</th>
-         <th class="text-center">操作</th>
+         <!--<th class="text-center">操作</th>-->
       </tr>
    </thead>
    <tbody *ngIf="roleList.length > 0">
@@ -16,10 +16,10 @@
          <td class="text-center">{{role.name}}</td>
          <td class="text-center">{{role.duty}}</td>
          <td class="text-center">{{role.update_date}}</td>
-         <td class="text-center">
+         <!--<td class="text-center">
          	<button class="btn btn-warning"  [disabled]="true" >编辑</button>
          	<button class="btn btn-danger" [disabled]="true" >删除</button>
-         </td>
+         </td>-->
       </tr>
      
    </tbody>

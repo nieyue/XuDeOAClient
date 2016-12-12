@@ -1,7 +1,7 @@
 import { NgModule ,Injectable }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
-import { HttpModule, JsonpModule ,BrowserXhr } from '@angular/http';
+import { HttpModule, JsonpModule,BrowserXhr  } from '@angular/http';
 import { AppRoutingModule }    from './app-routing.module';
 import { MycommonModule }    from './common/mycommon.module';
 
@@ -11,19 +11,8 @@ import { IndexComponent }   from './index/index.component';//首页组件
 import { AuthLoginService }   from './service/authlogin.service';//是否登录服务
 import { RoleService } from './service/role.service';//角色服务
 import { PaginationService } from './service/pagination.service';//分页服务
+import { CorsBrowserXhrService } from './service/corsbrowserxhr.service';//ajax服务
 
-@Injectable()  
-export class CorsBrowserXhr extends BrowserXhr {  
-    constructor() {  
-        super();  
-    }  
-  
-    build(): any {  
-        let xhr:XMLHttpRequest = super.build();  
-        xhr.withCredentials = true;  
-        return <any>(xhr);  
-    }  
-} 
 
 @NgModule({
   imports: [
@@ -39,10 +28,11 @@ export class CorsBrowserXhr extends BrowserXhr {
     IndexComponent
     ],
     providers:[
-   { provide: BrowserXhr, useClass:CorsBrowserXhr },
-AuthLoginService,
-PaginationService,
-RoleService
+        {provide: BrowserXhr,useClass:CorsBrowserXhrService},
+   CorsBrowserXhrService,
+  AuthLoginService,
+  PaginationService,
+  RoleService
     ],
   bootstrap: [
     AppComponent]

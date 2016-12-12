@@ -2,6 +2,7 @@
 <br/><div class="btn btn-lg btn-primary" (click)="toggleListAdmin()"   style="margin:30px 0;" >{{toggleListAdminValue}}</div>
 <!-- 添加员工按钮end -->
 
+<div class="alert alert-danger">注意：因手机号码和邮箱作为登录的凭证，所以不能添加或修改成已经存在相同的！</div>
 <!-- 增加员工 -->
 	<form *ngIf="toggleListAdminValue=='员工列表'" (ngSubmit)="saveAdmin()"  novalidate #saveAdminForm="ngForm">
     <label class="text-info">姓名</label>
@@ -42,8 +43,8 @@
    #role_id="ngModel" required  name="role_id"
    >
     <option value="">请选择</option>
-    <option *ngFor="let role of roleList" [value]='role.role_id' [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >
-      {{role.name}}
+    <option *ngFor="let role of roleList" [value]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id?sessionAdmin.role_id:role.role_id" [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >
+      {{role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id?'':role.name}}
     </option>  
 </select>
   </div>
@@ -67,7 +68,7 @@
          <th class="text-center">操作</th>
       </tr>
    </thead>
-   <tbody *ngIf="adminList.length > 0">
+   <tbody >
 
       <tr class="myactive" *ngFor="let admin of adminList" > 
          <td class="text-center">{{admin.name}}</td>
@@ -84,15 +85,16 @@
          <td class="text-center">
            <!--匹配每一个管理员的角色 ，如果当前用户不为超级管理员 则禁用-->
            <div *ngFor="let role of roleList">
-         	<button class="btn btn-warning" data-target="#myModal" *ngIf="role.role_id==admin.role_id" [disabled]="role.name=='超级管理员' && sessionAdmin.role_id!=admin.role_id" (click)="updateAdmin(admin)">编辑</button>
-         	<button class="btn btn-danger" [disabled]="role.name=='超级管理员' && sessionAdmin.role_id!=admin.role_id" *ngIf="role.role_id==admin.role_id" (click)="delAdmin(admin)">删除</button>
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="role.role_id==admin.role_id && (role.name!='超级管理员' || sessionAdmin.role_id==admin.role_id)"  (click)="updateAdmin(admin)">编辑</button>
+         	<button class="btn btn-danger"  *ngIf="role.role_id==admin.role_id && (role.name!='超级管理员' || sessionAdmin.role_id==admin.role_id)" (click)="delAdmin(admin)">删除</button>
+         <div *ngIf="role.role_id==admin.role_id && role.name=='超级管理员' && sessionAdmin.role_id!=admin.role_id" class="alert alert-danger">无操作权限</div>
          </div>
          </td>
       </tr>
      
    </tbody>
 </table>
-   <div *ngIf="toggleListAdminValue=='添加员工' && adminList.length <= 0 && !showAdminListIcon" class="text-center">
+   <div *ngIf="toggleListAdminValue=='添加员工' && adminList.length <= 0 && !showAdminListIcon" class="text-center alert alert-warning">
        还没有员工，点击上面的添加员工快速添加吧！
    </div>
 <!-- 页面列表end -->

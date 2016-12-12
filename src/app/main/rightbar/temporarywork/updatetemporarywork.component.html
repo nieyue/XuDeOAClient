@@ -1,0 +1,60 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改临时任务
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updateTemporaryworkSubmit()"  novalidate #updateTemporaryworkForm="ngForm">
+    <label class="text-info">手机号</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="64"
+    #phone_number="ngModel" required [(ngModel)]="temporarywork.phone_number" name="phone_number"
+      placeholder="输入手机号">
+      <span class="text-danger alert alert-danger " [hidden]="phone_number.valid || phone_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label class="text-info">工作人</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="64"
+	 #workers="ngModel" required [(ngModel)]="temporarywork.workers" name="workers"
+      placeholder="输入工作人">
+      <span class="text-danger alert alert-danger " [hidden]="workers.valid || workers.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label  class="text-info">工作任务</label>
+  <div class="comment-input-margin">
+   <textarea  class="comment-input" 
+   style="width:500px;min-height:200px;"
+    minlength="2" maxlength="255"
+	 #task="ngModel" required [(ngModel)]="temporarywork.task" name="task"
+    placeholder="输入工作任务"></textarea>
+    <span class="text-danger alert alert-danger " [hidden]="task.valid || task.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-255位</span>
+  </div>
+  <label class="text-info">完成情况</label>
+  <div class=" comment-input-margin">
+    <textarea  class=" comment-input"
+    style="width:500px;min-height:200px;"
+    minlength="2" maxlength="255"
+    #task_situation="ngModel" required [(ngModel)]="temporarywork.task_situation" name="task_situation"
+      placeholder="完成情况"></textarea>
+      <span class="text-danger alert alert-danger " [hidden]="task_situation.valid || task_situation.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-255位</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updateTemporaryworkForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

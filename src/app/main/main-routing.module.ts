@@ -7,6 +7,7 @@ import { ListroleComponent }   from '../main/rightbar/admin/listrole/listrole.co
 import { ListjurisdictionComponent }   from '../main/rightbar/admin/listjurisdiction/listjurisdiction.component';//主页右边权限组件
 import { ListadminComponent }   from '../main/rightbar/admin/listadmin/listadmin.component';//主页右边员工列表组件
 import { PhoneComponent}   from '../main/rightbar/phone/phone.component';//主页右边手机列表组件
+import { TemporaryworkComponent}   from '../main/rightbar/temporarywork/temporarywork.component';//主页右边临时工作组件
 import { WebsiteComponent }   from '../main/rightbar/website/website.component';//主页右边广告页面组件
 import { AddwebsiteComponent }   from '../main/rightbar/website/addwebsite/addwebsite.component';//主页右边添加广告页面组件
 import { ListwebsiteComponent }   from '../main/rightbar/website/listwebsite/listwebsite.component';//主页右边页面列表组件
@@ -35,7 +36,7 @@ const mainRoutes: Routes = [
 {path:'phonenumber',component:PersonComponent},
 {path:'problem',component:AdvertisementComponent},
 {path:'task',component:AdvertisementComponent},
-{path:'temporarywork',component:AdvertisementComponent},
+{path:'temporarywork',component:TemporaryworkComponent},
 {path:'',component:AdminComponent}
   ]}
 ];

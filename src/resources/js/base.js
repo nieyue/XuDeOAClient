@@ -82,8 +82,8 @@ var myUtils = {
 	 * 
 	 */
 	getDomain:function(){
-		return "http://oa.tea18.cn";
-		//return "http://localhost";
+		//return "http://oa.tea18.cn";
+		return "http://localhost";
 	},
 	/**
 	 * 如果没选择店铺就404

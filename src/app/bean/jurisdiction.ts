@@ -8,6 +8,6 @@
    public updation:string,//修改
    public queries:string,//查询
    public update_date:string,//更新时间
-   public role_id:string,//角色id
+   public role_id:string//角色id
     ){}
 }

@@ -78,8 +78,9 @@
           <td class="text-center">
               <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
            <div *ngFor="let role of roleList">
-         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id"  [disabled]="role.name=='普通员工'" (click)="updatePhone(phone)">编辑</button>
-         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id" [disabled]="role.name=='普通员工'"  (click)="delPhone(phone)">删除</button>
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'"   (click)="updatePhone(phone)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'"   (click)="delPhone(phone)">删除</button>
+         <div *ngIf="sessionAdmin.role_id==role.role_id && role.name=='普通员工'" class="alert alert-danger">无操作权限</div>
          </div>
          </td>
       </tr>
@@ -88,7 +89,7 @@
 </table>
 <!-- 页面列表end -->
 
-<div *ngIf="toggleListPhoneValue=='添加手机' &&  phoneList.length <= 0 && !showPhoneListIcon" class="text-center">
+<div *ngIf="toggleListPhoneValue=='添加手机' &&  phoneList.length <= 0 && !showPhoneListIcon" class="text-center alert alert-warning">
        还没有手机，点击上面的添加手机快速添加吧！
    </div>
 <!-- 加载更多end -->

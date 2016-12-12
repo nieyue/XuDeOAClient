@@ -77,7 +77,7 @@ this.roleList=JSON.parse(sessionStorage.getItem("roleList"));
           this.totalPage=this.paginationService.getTotalPage(this.totalNumber,this.pageNumber);//总页码数目     
           this.showPageNumberArray=this.paginationService.getShowPageNumber(this.totalPage,this.pageNumber,this.mostShowPageNumber,this.currentPage);//显示页码数目 
 
-        //初始化adminList
+        //初始化phoneList
   $.get(myUtils.getDomain()+"/phone/list?pageNum="+((this.currentPage-1)*this.pageNumber+1)+"&pageSize="+this.pageNumber,(pld)=>{
          sessionStorage.setItem("phoneList",JSON.stringify(pld));
            this.phoneList=pld;
@@ -115,7 +115,7 @@ phone:Phone=new Phone('','','','','','','','');//添加手机的Phone
      number:this.phone.number,
      iemi:this.phone.iemi,
      mac:this.phone.mac,
-     inventory_situation:this.phone.inventory_situation
+     inventorySituation:this.phone.inventory_situation
   
      },
    (data)=>{
