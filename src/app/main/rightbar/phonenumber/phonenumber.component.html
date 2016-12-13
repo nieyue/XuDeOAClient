@@ -1,0 +1,280 @@
+<!-- 添加手机号按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListPhonenumber()"   style="margin:30px 0;" >{{toggleListPhonenumberValue}}</div>
+<!-- 添加手机号按钮end -->
+<!-- 增加手机号 -->
+	<form [hidden]="toggleListPhonenumberValue!='手机号列表'" (ngSubmit)="savePhonenumber()"  novalidate #savePhonenumberForm="ngForm">
+    <label class="text-danger">*手机号</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$"
+    #number="ngModel" required [(ngModel)]="phonenumber.number" name="number"
+      placeholder="输入手机号">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>输入正确手机号</span>
+  </div>
+    <label class="text-danger">*运营设备</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="16"
+	 #operating_equipment="ngModel" required [(ngModel)]="phonenumber.operating_equipment" name="operating_equipment"
+      placeholder="输入运营设备">
+      <span class="text-danger alert alert-danger " [hidden]="operating_equipment.valid || operating_equipment.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-danger">*操作设备</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="16"
+	 #robot_equipment="ngModel" required [(ngModel)]="phonenumber.robot_equipment" name="robot_equipment"
+      placeholder="输入操作设备">
+      <span class="text-danger alert alert-danger " [hidden]="robot_equipment.valid || robot_equipment.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-danger">*ip地址</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="16"
+	 #ip_address="ngModel" required [(ngModel)]="phonenumber.ip_address" name="ip_address"
+      placeholder="输入ip地址">
+      <span class="text-danger alert alert-danger " [hidden]="ip_address.valid || ip_address.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-16位</span>
+  </div>
+    <label class="text-info">微信号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="32"
+	 #wechat_number="ngModel"  [(ngModel)]="phonenumber.wechat_number" name="wechat_number"
+      placeholder="输入微信号">
+      <span class="text-danger alert alert-danger " [hidden]="wechat_number.valid || wechat_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">微信号类型</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="32"
+	 #wechat_type="ngModel"  [(ngModel)]="phonenumber.wechat_type" name="wechat_type"
+      placeholder="输入微信号类型">
+      <span class="text-danger alert alert-danger " [hidden]="wechat_type.valid || wechat_type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">微信密码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #wechat_password="ngModel"  [(ngModel)]="phonenumber.wechat_password" name="wechat_password"
+      placeholder="输入微信密码">
+      <span class="text-danger alert alert-danger " [hidden]="wechat_password.valid || wechat_password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">微信注册日期</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime "   >
+         <input class="form-control"
+           #wechat_reg_date="ngModel" readonly [(ngModel)]="phonenumber.wechat_reg_date" name="wechat_reg_date"
+          size="16" type="text" >
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+
+  <label class="text-info">qq号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #qq_number="ngModel"  [(ngModel)]="phonenumber.qq_number" name="qq_number"
+      placeholder="输入qq号">
+      <span class="text-danger alert alert-danger " [hidden]="qq_number.valid || qq_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">qq号类型</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="32"
+	 #qq_type="ngModel"  [(ngModel)]="phonenumber.qq_type" name="qq_type"
+      placeholder="输入qq号类型">
+      <span class="text-danger alert alert-danger " [hidden]="qq_type.valid || qq_type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">qq密码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #qq_password="ngModel"  [(ngModel)]="phonenumber.qq_password" name="qq_password"
+      placeholder="输入qq密码">
+      <span class="text-danger alert alert-danger " [hidden]="qq_password.valid || qq_password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">qq注册日期</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime "   >
+         <input class="form-control"
+           #qq_reg_date="ngModel" readonly [(ngModel)]="phonenumber.qq_reg_date" name="qq_reg_date"
+          size="16" type="text" value="">
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+
+  <label class="text-info">陌陌号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #momo_number="ngModel"  [(ngModel)]="phonenumber.momo_number" name="momo_number"
+      placeholder="输入陌陌号">
+      <span class="text-danger alert alert-danger " [hidden]="momo_number.valid || momo_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">陌陌号类型</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="32"
+	 #momo_type="ngModel"  [(ngModel)]="phonenumber.momo_type" name="momo_type"
+      placeholder="输入陌陌号类型">
+      <span class="text-danger alert alert-danger " [hidden]="momo_type.valid || momo_type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">陌陌密码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #momo_password="ngModel"  [(ngModel)]="phonenumber.momo_password" name="momo_password"
+      placeholder="输入陌陌密码">
+      <span class="text-danger alert alert-danger " [hidden]="momo_password.valid || momo_password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">陌陌注册日期</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime"   >
+         <input class="form-control"
+           #momo_reg_date="ngModel"  readonly [(ngModel)]="phonenumber.momo_reg_date" name="momo_reg_date"
+          size="16" type="text" value="">
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+
+  <label class="text-info">微博号</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #microblog_number="ngModel"  [(ngModel)]="phonenumber.microblog_number" name="microblog_number"
+      placeholder="输入微博号">
+      <span class="text-danger alert alert-danger " [hidden]="microblog_number.valid || microblog_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">微博号类型</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="32"
+	 #microblog_type="ngModel"  [(ngModel)]="phonenumber.microblog_type" name="microblog_type"
+      placeholder="输入微博号类型">
+      <span class="text-danger alert alert-danger " [hidden]="microblog_type.valid || microblog_type.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">微博密码</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="6" maxlength="16"
+	 #microblog_password="ngModel"  [(ngModel)]="phonenumber.microblog_password" name="microblog_password"
+      placeholder="输入微博密码">
+      <span class="text-danger alert alert-danger " [hidden]="microblog_password.valid || microblog_password.pristine"><i class="glyphicon glyphicon-info-sign"></i>6-16位</span>
+  </div>
+    <label class="text-info">微博注册日期</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime "   >
+         <input class="form-control"
+           #microblog_reg_date="ngModel" readonly  [(ngModel)]="phonenumber.microblog_reg_date" name="microblog_reg_date"
+          size="16" type="text">
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+    <label  class="text-info">备注</label>
+  <div class="comment-input-margin">
+   <textarea type="text" class="comment-input" 
+   style="width:500px;min-height:200px;"
+    minlength="2" maxlength="64"
+	 #remark="ngModel"  [(ngModel)]="phonenumber.remark" name="remark"
+    placeholder="输入备注"></textarea>
+    <span class="text-danger alert alert-danger " [hidden]="remark.valid || remark.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !savePhonenumberForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加手机号 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showPhonenumberListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListPhonenumberValue=='添加手机号' && phonenumberList.length > 0  && !showPhonenumberListIcon " >
+
+ <thead>
+      <tr > 
+        <th class="text-center">序号</th>
+         <th class="text-center">手机号</th>
+         <th class="text-center">运营设备</th>
+         <th class="text-center">操作设备</th>
+         <th class="text-center">ip地址</th>
+         <th class="text-center">微信号</th>
+         <th class="text-center">微信号类型</th>
+         <th class="text-center">微信号密码</th>
+         <th class="text-center">微信号注册日期</th>
+         <th class="text-center">qq号</th>
+         <th class="text-center">qq号类型</th>
+         <th class="text-center">qq号密码</th>
+         <th class="text-center">qq号注册日期</th>
+         <th class="text-center">陌陌号</th>
+         <th class="text-center">陌陌号类型</th>
+         <th class="text-center">陌陌号密码</th>
+         <th class="text-center">陌陌号注册日期</th>
+         <th class="text-center">微博号</th>
+         <th class="text-center">微博号类型</th>
+         <th class="text-center">微博号密码</th>
+         <th class="text-center">微博号注册日期</th>
+         <th class="text-center">备注</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">更新时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr class="myactive" *ngFor="let phonenumber of phonenumberList;let index=index" > 
+         <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
+         <td class="text-center">{{phonenumber.number}}</td>
+         <td class="text-center">{{phonenumber.operating_equipment}}</td>
+         <td class="text-center">{{phonenumber.robot_equipment}}</td>
+         <td class="text-center">{{phonenumber.ip_address}}</td>
+         <td class="text-center">{{phonenumber.wechat_number||'无'}}</td>
+         <td class="text-center">{{phonenumber.wechat_type||'无'}}</td>
+         <td class="text-center">{{phonenumber.wechat_password||'无'}}</td>
+         <td class="text-center">{{phonenumber.wechat_reg_date||'无'}}</td>
+         <td class="text-center">{{phonenumber.qq_number||'无'}}</td>
+         <td class="text-center">{{phonenumber.qq_type||'无'}}</td>
+         <td class="text-center">{{phonenumber.qq_password||'无'}}</td>
+         <td class="text-center">{{phonenumber.qq_reg_date||'无'}}</td>
+         <td class="text-center">{{phonenumber.momo_number||'无'}}</td>
+         <td class="text-center">{{phonenumber.momo_type||'无'}}</td>
+         <td class="text-center">{{phonenumber.momo_password||'无'}}</td>
+         <td class="text-center">{{phonenumber.momo_reg_date||'无'}}</td>
+         <td class="text-center">{{phonenumber.microblog_number||'无'}}</td>
+         <td class="text-center">{{phonenumber.microblog_type||'无'}}</td>
+         <td class="text-center">{{phonenumber.microblog_password||'无'}}</td>
+         <td class="text-center">{{phonenumber.microblog_reg_date||'无'}}</td>
+         <td class="text-center">{{phonenumber.remark||'无'}}</td>
+         <td class="text-center">{{phonenumber.create_date}}</td>
+         <td class="text-center">{{phonenumber.update_date}}</td>
+          <td class="text-center">
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'"   (click)="updatePhonenumber(phonenumber)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'"   (click)="delPhonenumber(phonenumber)">删除</button>
+         <div *ngIf="sessionAdmin.role_id==role.role_id && role.name=='普通员工'" class="alert alert-danger">无操作权限</div>
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListPhonenumberValue=='添加手机号' &&  phonenumberList.length <= 0 && !showPhonenumberListIcon" class="text-center alert alert-warning">
+       还没有手机号码，点击上面的添加手机号码快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListPhonenumberValue=='添加手机号'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总手机号数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-phonenumber-update></main-rightbar-phonenumber-update>

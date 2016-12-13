@@ -24,7 +24,7 @@ select,option{
 td{
 	max-width: 300px;
 	word-wrap:break-word; 
-word-break:break-all; 
+/*word-break:break-all; */
 }
 /**
 **重写navbar-default

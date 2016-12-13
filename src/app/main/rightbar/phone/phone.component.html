@@ -55,7 +55,8 @@
 <table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListPhoneValue=='添加手机' && phoneList.length > 0  && !showPhoneListIcon " >
 
  <thead>
-      <tr class="myactive"> 
+      <tr > 
+        <th class="text-center">序号</th>
          <th class="text-center">手机类型</th>
          <th class="text-center">手机编号</th>
          <th class="text-center">iemi</th>
@@ -66,8 +67,9 @@
          <th class="text-center">操作</th>
       </tr>
    </thead>
-   <tbody *ngIf="phoneList.length > 0">
-      <tr class="myactive" *ngFor="let phone of phoneList" > 
+   <tbody >
+      <tr class="myactive" *ngFor="let phone of phoneList;let index=index" > 
+         <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
          <td class="text-center">{{phone.type}}</td>
          <td class="text-center">{{phone.number}}</td>
          <td class="text-center">{{phone.iemi}}</td>

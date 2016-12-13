@@ -51,6 +51,7 @@
 
  <thead>
       <tr > 
+         <th class="text-center">序号</th>
          <th class="text-center">手机号</th>
          <th class="text-center">工作人</th>
          <th class="text-center">工作任务</th>
@@ -60,8 +61,9 @@
          <th class="text-center">操作</th>
       </tr>
    </thead>
-   <tbody *ngIf="temporaryworkList.length > 0">
-      <tr  *ngFor="let temporarywork of temporaryworkList" > 
+   <tbody>
+      <tr  *ngFor="let temporarywork of temporaryworkList;let index=index" > 
+        <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
          <td class="text-center">{{temporarywork.phone_number}}</td>
          <td class="text-center">{{temporarywork.workers}}</td>
          <td class="text-center">{{temporarywork.task}}</td>

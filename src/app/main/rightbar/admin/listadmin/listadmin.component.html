@@ -2,7 +2,7 @@
 <br/><div class="btn btn-lg btn-primary" (click)="toggleListAdmin()"   style="margin:30px 0;" >{{toggleListAdminValue}}</div>
 <!-- 添加员工按钮end -->
 
-<div class="alert alert-danger">注意：因手机号码和邮箱作为登录的凭证，所以不能添加或修改成已经存在相同的！</div>
+<div class="alert alert-danger" style="margin:20px 0;">注意：因手机号码和邮箱作为登录的凭证，所以不能添加或修改成已经存在相同的！</div>
 <!-- 增加员工 -->
 	<form *ngIf="toggleListAdminValue=='员工列表'" (ngSubmit)="saveAdmin()"  novalidate #saveAdminForm="ngForm">
     <label class="text-info">姓名</label>
@@ -58,7 +58,8 @@
 <table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListAdminValue=='添加员工' && adminList.length > 0  && !showAdminListIcon " >
 
  <thead>
-      <tr class="myactive"> 
+      <tr > 
+         <th class="text-center">序号</th>
          <th class="text-center">姓名</th>
          <th class="text-center">手机号</th>
          <th class="text-center">邮箱</th>
@@ -70,7 +71,8 @@
    </thead>
    <tbody >
 
-      <tr class="myactive" *ngFor="let admin of adminList" > 
+      <tr  *ngFor="let admin of adminList;let index=index" > 
+         <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
          <td class="text-center">{{admin.name}}</td>
          <td class="text-center">{{admin.cell_phone}}</td>
          <td class="text-center">{{admin.email}}</td>

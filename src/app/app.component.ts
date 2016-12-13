@@ -16,6 +16,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl:'app.component.html'
 })
 export class AppComponent implements  OnInit{
+  constructor(private router:Router){}
   ngOnInit(){
 　　$.ajaxSetup({
 // 　　　　timeout: 3000,
@@ -29,9 +30,7 @@ export class AppComponent implements  OnInit{
 // 　　　　//完成请求后触发。即在success或error触发后触发
  　　　　complete: function (xhr) { 
    if(xhr.responseJSON&&xhr.responseJSON.code==40002){//手机或email已经存在
-                console.log(xhr.responseJSON)
                  myUtils.myLoadingToast(xhr.responseJSON.msg);
-                
                  return ;
            }
    if(xhr.responseJSON&&xhr.responseJSON.code==40001){
