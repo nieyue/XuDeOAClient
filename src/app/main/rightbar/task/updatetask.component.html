@@ -1,0 +1,116 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改问题
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updateTaskSubmit()"  novalidate #updateTaskForm="ngForm">
+     <label class="text-info">任务名称（手机、微信、qq、陌陌、微博）</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="task.name" (ngModelChange)="task.name=$event" 
+   #name="ngModel" required  name="name"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let name of ['手机','微信','QQ','陌陌','微博']"  >
+      {{name}}
+    </option>  
+</select>
+  </div>
+    <label class="text-info">任务名称号码(手机号、微信号、qq号、陌陌号、微博号)</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="64"
+	 #number="ngModel" required [(ngModel)]="task.number" name="number"
+      placeholder="输入任务名称号码">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label  class="text-info">当天基础人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #base_number="ngModel" required [ngModel]="task.base_number" (ngModelChange)="task.base_number=$event;getTaskDayTotalNumber()" name="base_number"
+    placeholder="输入当天基础人数">
+    <span class="text-danger alert alert-danger " [hidden]="base_number.valid || base_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">上午加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #am_number="ngModel" required [(ngModel)]="task.am_number" name="am_number"
+    placeholder="输入上午加人数">
+    <span class="text-danger alert alert-danger " [hidden]="am_number.valid || am_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">14:00总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #am_total_number="ngModel" required [(ngModel)]="task.am_total_number" name="am_total_number"
+    placeholder="输入14:00总人数">
+    <span class="text-danger alert alert-danger " [hidden]="am_total_number.valid || am_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">下午加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #pm_number="ngModel" required [(ngModel)]="task.pm_number" name="pm_number"
+    placeholder="输入下午加人数">
+    <span class="text-danger alert alert-danger " [hidden]="pm_number.valid || pm_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">17:30总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #pm_total_number="ngModel" required [(ngModel)]="task.pm_total_number" name="pm_total_number"
+    placeholder="输入17:30总人数">
+    <span class="text-danger alert alert-danger " [hidden]="pm_total_number.valid || pm_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">晚上加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #night_number="ngModel" required [(ngModel)]="task.night_number" name="night_number"
+    placeholder="输入晚上加人数">
+    <span class="text-danger alert alert-danger " [hidden]="night_number.valid || night_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">20:00总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #night_total_number="ngModel" required [ngModel]="task.night_total_number" (ngModelChange)="task.night_total_number=$event;getTaskDayTotalNumber()" name="night_total_number"
+    placeholder="输入20:00总人数">
+    <span class="text-danger alert alert-danger " [hidden]="night_total_number.valid || night_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">当天通过总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #day_total_number="ngModel" required [(ngModel)]="task.day_total_number" readonly name="day_total_number"
+    placeholder="输入当天通过总人数">
+    <span class="text-danger alert alert-danger " [hidden]="day_total_number.valid || day_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">当天存留总人数（第二天输入）</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #day_retain_number="ngModel" [(ngModel)]="task.day_retain_number" name="day_retain_number"
+    placeholder="输入当天存留总人数">
+    <span class="text-danger alert alert-danger " [hidden]="day_retain_number.valid || day_retain_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updateTaskForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

@@ -1,0 +1,124 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改推广统计
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updatePromotionstatisticsSubmit()"  novalidate #updatePromotionstatisticsForm="ngForm">
+      <label class="text-info">推广时间</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime"   >
+         <input class="form-control"
+           #promotion_date="ngModel"  readonly [(ngModel)]="promotionstatistics.promotion_date" name="promotion_date"
+          size="16" type="text" value="">
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+    
+    <label class="text-info">推广时段</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="255"
+    #period="ngModel" required [(ngModel)]="promotionstatistics.period" name="period"
+      placeholder="输入推广时段">
+      <span class="text-danger alert alert-danger " [hidden]="period.valid || period.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-255位</span>
+  </div>
+    <label class="text-info">链接</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="255"
+    #link="ngModel" required [(ngModel)]="promotionstatistics.link" name="link"
+      placeholder="输入网站url">
+      <span class="text-danger alert alert-danger " [hidden]="link.valid || link.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-255位</span>
+  </div>
+    <label class="text-info">朋友圈用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #friend_circle="ngModel" required [(ngModel)]="promotionstatistics.friend_circle" name="friend_circle"
+      placeholder="输入朋友圈用户">
+      <span class="text-danger alert alert-danger " [hidden]="friend_circle.valid || friend_circle.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">微信群用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #wechat_group="ngModel" required [(ngModel)]="promotionstatistics.wechat_group" name="wechat_group"
+      placeholder="输入微信群用户">
+      <span class="text-danger alert alert-danger " [hidden]="wechat_group.valid || wechat_group.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">点对点用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #point="ngModel" required [(ngModel)]="promotionstatistics.point" name="point"
+      placeholder="输入点对点用户">
+      <span class="text-danger alert alert-danger " [hidden]="point.valid || point.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">QQ群</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #qq_group="ngModel" required [(ngModel)]="promotionstatistics.qq_group" name="qq_group"
+      placeholder="输入QQ群">
+      <span class="text-danger alert alert-danger " [hidden]="qq_group.valid || qq_group.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">QQ点对点</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #qq_point="ngModel" required [(ngModel)]="promotionstatistics.qq_point" name="qq_point"
+      placeholder="输入QQ点对点">
+      <span class="text-danger alert alert-danger " [hidden]="qq_point.valid || qq_point.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">陌陌用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #momo="ngModel" required [(ngModel)]="promotionstatistics.momo" name="momo"
+      placeholder="输入陌陌用户">
+      <span class="text-danger alert alert-danger " [hidden]="momo.valid || momo.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">推广用户合计</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #total="ngModel" required [(ngModel)]="promotionstatistics.total" name="total"
+      placeholder="输入推广用户合计">
+      <span class="text-danger alert alert-danger " [hidden]="total.valid || total.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">当日uv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #days_uv="ngModel" required [(ngModel)]="promotionstatistics.days_uv" name="days_uv"
+      placeholder="输入当日uv">
+      <span class="text-danger alert alert-danger " [hidden]="days_uv.valid || days_uv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">当日pv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #days_pv="ngModel" required [(ngModel)]="promotionstatistics.days_pv" name="days_pv"
+      placeholder="输入当日pv">
+      <span class="text-danger alert alert-danger " [hidden]="days_pv.valid || days_pv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updatePromotionstatisticsForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

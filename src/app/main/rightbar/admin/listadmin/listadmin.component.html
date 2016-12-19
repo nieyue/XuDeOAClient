@@ -43,7 +43,7 @@
    #role_id="ngModel" required  name="role_id"
    >
     <option value="">请选择</option>
-    <option *ngFor="let role of roleList" [value]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id?sessionAdmin.role_id:role.role_id" [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >
+    <option *ngFor="let role of roleList" [value]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id?'':role.role_id" [hidden]="role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id " >
       {{role.name=='超级管理员' && sessionAdmin.role_id!=role.role_id?'':role.name}}
     </option>  
 </select>

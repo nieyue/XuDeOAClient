@@ -1,0 +1,64 @@
+<button class="btn btn-primary btn-lg hidden" data-toggle="modal" id="modalClick" data-target="#myModal">
+	点击开始
+</button>
+<div class="modal fade" id="myModal" tabindex="9999" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="myModalClose"  data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalTitle">
+					修改问题
+				</h4>
+			</div>
+			<div class="modal-body" id="myModalContent">
+				<form  (ngSubmit)="updateProblemSubmit()"  novalidate #updateProblemForm="ngForm">
+    <label class="text-info">问题号名称（手机、微信、QQ、陌陌、微博）</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="problem.name" (ngModelChange)="problem.name=$event" 
+   #name="ngModel" required  name="name"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let name of ['手机','微信','QQ','陌陌','微博']"  >
+      {{name}}
+    </option>  
+</select>
+  </div>
+    <label class="text-info">问题名称号码(手机号、微信号、qq号、陌陌号、微博号)</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="64"
+	 #number="ngModel" required [(ngModel)]="problem.number" name="number"
+      placeholder="输入问题名称号码">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label  class="text-info">问题内容</label>
+  <div class="comment-input-margin">
+   <textarea  class="comment-input" 
+   style="width:500px;min-height:200px;"
+    minlength="2" maxlength="255"
+	 #content="ngModel" required [(ngModel)]="problem.content" name="content"
+    placeholder="输入问题内容"></textarea>
+    <span class="text-danger alert alert-danger " [hidden]="content.valid || content.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-255位</span>
+  </div>
+   <label class="text-info">是否解决</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="problem.is_solve" (ngModelChange)="problem.is_solve=$event" 
+   #is_solve="ngModel" required  name="is_solve"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let n of ['0','1']" [value]='n'>
+      {{n=='1'?'已解决':'未解决'}}
+    </option>  
+</select>
+  </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !updateProblemForm.valid " >保存提交</button>
+  </div>
+</form>
+			</div>
+	
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>

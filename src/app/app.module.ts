@@ -1,4 +1,4 @@
-import { NgModule ,Injectable }      from '@angular/core';
+import { NgModule ,Injectable , PipeTransform}      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule, JsonpModule,BrowserXhr  } from '@angular/http';
@@ -14,6 +14,7 @@ import { PaginationService } from './service/pagination.service';//分页服务
 import { CorsBrowserXhrService } from './service/corsbrowserxhr.service';//ajax服务
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -22,7 +23,9 @@ import { CorsBrowserXhrService } from './service/corsbrowserxhr.service';//ajax�
     JsonpModule,
     AppRoutingModule,
     MycommonModule
+     
     ],
+  
   declarations: [
     AppComponent,
     IndexComponent

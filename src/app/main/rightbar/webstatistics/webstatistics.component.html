@@ -1,0 +1,173 @@
+<!-- 添加网站统计按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListWebstatistics()"   style="margin:30px 0;" >{{toggleListWebstatisticsValue}}</div>
+<!-- 添加网站统计按钮end -->
+<!-- 增加网站统计 -->
+	<form *ngIf="toggleListWebstatisticsValue=='网站统计列表'" (ngSubmit)="saveWebstatistics()"  novalidate #saveWebstatisticsForm="ngForm">
+    <label class="text-info">网站名称</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="32"
+    #web_name="ngModel" required [(ngModel)]="webstatistics.web_name" name="web_name"
+      placeholder="输入网站名称">
+      <span class="text-danger alert alert-danger " [hidden]="web_name.valid || web_name.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">网站url</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="2" maxlength="32"
+    #web_url="ngModel" required [(ngModel)]="webstatistics.web_url" name="web_url"
+      placeholder="输入网站url">
+      <span class="text-danger alert alert-danger " [hidden]="web_url.valid || web_url.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-32位</span>
+  </div>
+    <label class="text-info">uv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #uv="ngModel" required [(ngModel)]="webstatistics.uv" name="uv"
+      placeholder="输入uv">
+      <span class="text-danger alert alert-danger " [hidden]="uv.valid || uv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">新uv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #new_uv="ngModel" required [(ngModel)]="webstatistics.new_uv" name="new_uv"
+      placeholder="输入新uv">
+      <span class="text-danger alert alert-danger " [hidden]="new_uv.valid || new_uv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+
+    <label class="text-info">ip</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #ip="ngModel" required [(ngModel)]="webstatistics.ip" name="ip"
+      placeholder="输入ip">
+      <span class="text-danger alert alert-danger " [hidden]="ip.valid || ip.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">pv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #pv="ngModel" required [(ngModel)]="webstatistics.pv" name="pv"
+      placeholder="输入pv">
+      <span class="text-danger alert alert-danger " [hidden]="pv.valid || pv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">访问次数</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #visit_number="ngModel" required [(ngModel)]="webstatistics.visit_number" name="visit_number"
+      placeholder="输入访问次数">
+      <span class="text-danger alert alert-danger " [hidden]="visit_number.valid || visit_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">人均浏览页面</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="(^[+]?[1-9]\d*(\.\d{1,2})?$)|(^[+]?[0]{1}(\.\d{1,2})?$)"
+    #average_number="ngModel" required [(ngModel)]="webstatistics.average_number" name="average_number"
+      placeholder="输入人均浏览页面">
+      <span class="text-danger alert alert-danger " [hidden]="average_number.valid || average_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>最多两位小数</span>
+  </div>
+    <label class="text-info">平均访问深度</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+   pattern="(^[+]?[1-9]\d*(\.\d{1,2})?$)|(^[+]?[0]{1}(\.\d{1,2})?$)"
+    #average_deep="ngModel" required [(ngModel)]="webstatistics.average_deep" name="average_deep"
+      placeholder="输入平均访问深度">
+      <span class="text-danger alert alert-danger " [hidden]="average_deep.valid || average_deep.pristine"><i class="glyphicon glyphicon-info-sign"></i>最多两位小数</span>
+  </div>
+    <label class="text-info">跳出率</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="(^[+]?[1-9]\d*(\.\d{1,2})?$)|(^[+]?[0]{1}(\.\d{1,2})?$)"
+    #bounce_rate="ngModel" required [(ngModel)]="webstatistics.bounce_rate" name="bounce_rate"
+      placeholder="输入跳出率">%
+      <span class="text-danger alert alert-danger " [hidden]="bounce_rate.valid || bounce_rate.pristine"><i class="glyphicon glyphicon-info-sign"></i>最多两位小数</span>
+  </div>
+   
+    <label  class="text-info">高峰时段</label>
+  <div class="comment-input-margin">
+   <textarea  class="comment-input" 
+   style="width:500px;min-height:200px;"
+    minlength="1" maxlength="255"
+	 #peak_period="ngModel" required [(ngModel)]="webstatistics.peak_period" name="peak_period"
+    placeholder="输入高峰时段"></textarea>
+    <span class="text-danger alert alert-danger " [hidden]="peak_period.valid || peak_period.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-255位</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !saveWebstatisticsForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加网站统计 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showWebstatisticsListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListWebstatisticsValue=='添加网站统计' && webstatisticsList.length > 0  && !showWebstatisticsListIcon " >
+
+ <thead>
+      <tr > 
+         <th class="text-center">序号</th>
+         <th class="text-center">网站名称</th>
+         <th class="text-center">网站url</th>
+         <th class="text-center">uv</th>
+         <th class="text-center">新uv</th>
+         <th class="text-center">ip</th>
+         <th class="text-center">pv</th>
+         <th class="text-center">访问次数</th>
+         <th class="text-center">人均浏览页面</th>
+         <th class="text-center">平均访问深度</th>
+         <th class="text-center">跳出率</th>
+         <th class="text-center">高峰时段</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr  *ngFor="let webstatistics of webstatisticsList;let index=index" > 
+        <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
+         <td class="text-center">{{webstatistics.web_name}}</td>
+         <td class="text-center">{{webstatistics.web_url}}</td>
+         <td class="text-center">{{webstatistics.uv}}</td>
+         <td class="text-center">{{webstatistics.new_uv}}</td>
+         <td class="text-center">{{webstatistics.ip}}</td>
+         <td class="text-center">{{webstatistics.pv}}</td>
+         <td class="text-center">{{webstatistics.visit_number}}</td>
+         <td class="text-center">{{webstatistics.average_number}}</td>
+         <td class="text-center">{{webstatistics.average_deep}}</td>
+         <td class="text-center">{{webstatistics.bounce_rate}}%</td>
+         <td class="text-center">{{webstatistics.peak_period}}</td>
+         <td class="text-center">{{webstatistics.create_date}}</td>
+          <td class="text-center">
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="updateWebstatistics(webstatistics)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="delWebstatistics(webstatistics)">删除</button>
+            <div *ngIf="sessionAdmin.role_id==role.role_id && role.name=='普通员工'" class="alert alert-danger">无操作权限</div>
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListWebstatisticsValue=='添加网站统计' &&  webstatisticsList.length <= 0 && !showWebstatisticsListIcon" class="text-center alert alert-warning">
+       还没有网站统计，点击上面的添加网站统计快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListWebstatisticsValue=='添加网站统计'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总网站统计数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-webstatistics-update></main-rightbar-webstatistics-update>

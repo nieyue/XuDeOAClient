@@ -1,0 +1,103 @@
+<!-- 添加问题按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListProblem()"   style="margin:30px 0;" >{{toggleListProblemValue}}</div>
+<!-- 添加问题按钮end -->
+<!-- 增加问题 -->
+	<form *ngIf="toggleListProblemValue=='问题列表'" (ngSubmit)="saveProblem()"  novalidate #saveProblemForm="ngForm">
+    <label class="text-info">问题号名称（手机、微信、QQ、陌陌、微博）</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="problem.name" (ngModelChange)="problem.name=$event" 
+   #name="ngModel" required  name="name"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let name of ['手机','微信','QQ','陌陌','微博']"  >
+      {{name}}
+    </option>  
+</select>
+  </div>
+    <label class="text-info">问题名称号码(手机号、微信号、qq号、陌陌号、微博号)</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="64"
+	 #number="ngModel" required [(ngModel)]="problem.number" name="number"
+      placeholder="输入问题名称号码">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label  class="text-info">问题内容</label>
+  <div class="comment-input-margin">
+   <textarea  class="comment-input" 
+   style="width:500px;min-height:200px;"
+    minlength="2" maxlength="255"
+	 #content="ngModel" required [(ngModel)]="problem.content" name="content"
+    placeholder="输入问题内容"></textarea>
+    <span class="text-danger alert alert-danger " [hidden]="content.valid || content.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-255位</span>
+  </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !saveProblemForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加问题 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showProblemListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListProblemValue=='添加问题' && problemList.length > 0  && !showProblemListIcon " >
+
+ <thead>
+      <tr > 
+         <th class="text-center">序号</th>
+         <th class="text-center">问题号名称</th>
+         <th class="text-center">名称号码</th>
+         <th class="text-center">内容</th>
+         <th class="text-center">是否解决</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">问题创建者</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr  *ngFor="let problem of problemList;let index=index" > 
+        <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
+         <td class="text-center">{{problem.name}}</td>
+         <td class="text-center">{{problem.number}}</td>
+         <td class="text-center">{{problem.content}}</td>
+         <td class="text-center">{{problem.is_solve==0?'未解决':'已解决'}}</td>
+         <td class="text-center">{{problem.create_date}}</td>
+         <td class="text-center">
+           <span *ngFor="let allAdmin of allAdminList">
+           {{allAdmin.admin_id==problem.admin_id?allAdmin.name:''}}
+           </span>
+           </td>
+          <td class="text-center">
+            <!--<button class="btn btn-danger" >回复</button>-->
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="updateProblem(problem)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="delProblem(problem)">删除</button>
+        <div *ngIf="sessionAdmin.role_id==role.role_id && role.name=='普通员工'" class="alert alert-danger">无操作权限</div>
+
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListProblemValue=='添加问题' &&  problemList.length <= 0 && !showProblemListIcon" class="text-center alert alert-warning">
+       还没有问题，点击上面的添加问题快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListProblemValue=='添加问题'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总问题数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-problem-update></main-rightbar-problem-update>

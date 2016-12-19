@@ -18,6 +18,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class AppComponent implements  OnInit{
   constructor(private router:Router){}
   ngOnInit(){
+    let _this=this;
 　　$.ajaxSetup({
 // 　　　　timeout: 3000,
 // 　　　　dataType: 'html',
@@ -29,6 +30,7 @@ export class AppComponent implements  OnInit{
  　　//　　error: function (xhr, status, e) { myUtils.myLoadingToast("错误！"); },
 // 　　　　//完成请求后触发。即在success或error触发后触发
  　　　　complete: function (xhr) { 
+   myUtils.myPrevToast("加载中...",null,'remove');
    if(xhr.responseJSON&&xhr.responseJSON.code==40002){//手机或email已经存在
                  myUtils.myLoadingToast(xhr.responseJSON.msg);
                  return ;
@@ -36,7 +38,7 @@ export class AppComponent implements  OnInit{
    if(xhr.responseJSON&&xhr.responseJSON.code==40001){
                  myUtils.myLoadingToast("会话过期！重新登录");
                  sessionStorage.clear();
-                 this.router.navigate(['/']);
+                 _this.router.navigate(['/index']);
                  return ;
            }
    if(xhr.responseJSON&&xhr.responseJSON.code==40000){
@@ -49,6 +51,7 @@ export class AppComponent implements  OnInit{
 // 　　　　//可以设置自定义标头
 // 　　　　xhr.setRequestHeader('Content-Type', 'application/xml;charset=utf-8');
 //myUtils.myLoadingToast("加载中...");
+myUtils.myPrevToast("加载中...",null,'add');
  　　　　},
       //  beforeSend: function(xhr) {
       //           xhr.withCredentials = true;

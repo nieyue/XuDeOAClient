@@ -1,0 +1,195 @@
+<!-- 添加任务按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListTask()"   style="margin:30px 0;" >{{toggleListTaskValue}}</div>
+<!-- 添加任务按钮end -->
+
+<div class="alert alert-danger" style="margin:20px 0;">注意：因统计需求人数必须为数值，所以在指定框内不能填写非数字！</div>
+
+<!-- 增加任务-->
+	<form *ngIf="toggleListTaskValue=='任务列表'" (ngSubmit)="saveTask()"  novalidate #saveTaskForm="ngForm">
+    <label class="text-info">任务名称（手机、微信、qq、陌陌、微博）</label>
+  <div class="comment-input-margin">
+   <select [ngModel]="task.name" (ngModelChange)="task.name=$event" 
+   #name="ngModel" required  name="name"
+   >
+    <option value="">请选择</option>
+    <option *ngFor="let name of ['手机','微信','QQ','陌陌','微博']"  >
+      {{name}}
+    </option>  
+</select>
+  </div>
+    <label class="text-info">任务名称号码(手机号、微信号、qq号、陌陌号、微博号)</label>
+  <div class="comment-input-margin ">
+    <input type="text" class="comment-input"
+      minlength="2" maxlength="64"
+	 #number="ngModel" required [(ngModel)]="task.number" name="number"
+      placeholder="输入任务名称号码">
+      <span class="text-danger alert alert-danger " [hidden]="number.valid || number.pristine"><i class="glyphicon glyphicon-info-sign"></i>2-64位</span>
+  </div>
+    <label  class="text-info">当天基础人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #base_number="ngModel" required [ngModel]="task.base_number" (ngModelChange)="task.base_number=$event;getTaskDayTotalNumber()" name="base_number"
+    placeholder="输入当天基础人数">
+    <span class="text-danger alert alert-danger " [hidden]="base_number.valid || base_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">上午加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #am_number="ngModel" required [(ngModel)]="task.am_number" name="am_number"
+    placeholder="输入上午加人数">
+    <span class="text-danger alert alert-danger " [hidden]="am_number.valid || am_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">14:00总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #am_total_number="ngModel" required [(ngModel)]="task.am_total_number" name="am_total_number"
+    placeholder="输入14:00总人数">
+    <span class="text-danger alert alert-danger " [hidden]="am_total_number.valid || am_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">下午加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #pm_number="ngModel" required [(ngModel)]="task.pm_number" name="pm_number"
+    placeholder="输入下午加人数">
+    <span class="text-danger alert alert-danger " [hidden]="pm_number.valid || pm_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">17:30总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #pm_total_number="ngModel" required [(ngModel)]="task.pm_total_number" name="pm_total_number"
+    placeholder="输入17:30总人数">
+    <span class="text-danger alert alert-danger " [hidden]="pm_total_number.valid || pm_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">晚上加人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #night_number="ngModel" required [(ngModel)]="task.night_number" name="night_number"
+    placeholder="输入晚上加人数">
+    <span class="text-danger alert alert-danger " [hidden]="night_number.valid || night_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">20:00总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #night_total_number="ngModel" required [ngModel]="task.night_total_number" (ngModelChange)="task.night_total_number=$event;getTaskDayTotalNumber()" name="night_total_number"
+    placeholder="输入20:00总人数">
+    <span class="text-danger alert alert-danger " [hidden]="night_total_number.valid || night_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">当天通过总人数</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+   pattern="^(-|\+)?\d{1,11}$"
+	 #day_total_number="ngModel" required [(ngModel)]="task.day_total_number" readonly name="day_total_number"
+    placeholder="输入当天通过总人数">
+    <span class="text-danger alert alert-danger " [hidden]="day_total_number.valid || day_total_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label  class="text-info">当天存留总人数（第二天输入）</label>
+  <div class="comment-input-margin">
+   <input  class="comment-input" 
+    pattern="^(-|\+)?\d{1,11}$"
+	 #day_retain_number="ngModel" [(ngModel)]="task.day_retain_number" name="day_retain_number"
+    placeholder="输入当天存留总人数">
+    <span class="text-danger alert alert-danger " [hidden]="day_retain_number.valid || day_retain_number.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !saveTaskForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加任务 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showTaskListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListTaskValue=='添加任务' && taskList.length > 0  && !showTaskListIcon " >
+
+ <thead>
+      <tr > 
+         <th class="text-center">序号</th>
+         <th class="text-center">任务名称</th>
+         <th class="text-center">名称号码</th>
+         <th class="text-center">当天基础人数</th>
+         <th class="text-center">上午加人数</th>
+         <th class="text-center">14:00总人数</th>
+         <th class="text-center">上午通过人数</th>
+         <th class="text-center">上午通过率</th>
+         <th class="text-center">下午加人数</th>
+         <th class="text-center">17:30总人数</th>
+          <th class="text-center">下午通过人数</th>
+         <th class="text-center">下午通过率</th>
+         <th class="text-center">晚上加人数</th>
+         <th class="text-center">20:00总人数</th>
+         <th class="text-center">晚上通过人数</th>
+         <th class="text-center">晚上通过率</th>
+         <th class="text-center">当天通过总人数</th>
+         <th class="text-center">当天存留总人数</th>
+         <th class="text-center">填写人</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">修改时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr  *ngFor="let task of taskList;let index=index" > 
+        <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
+         <td class="text-center">{{task.name}}</td>
+         <td class="text-center">{{task.number}}</td>
+         <td class="text-center">{{task.base_number}}</td>
+         <td class="text-center">{{task.am_number}}</td>
+         <td class="text-center">{{task.am_total_number}}</td>
+         <td class="text-center">{{task.am_total_number-task.base_number}}</td>
+         <td class="text-center">{{((task.am_total_number-task.base_number)/task.am_number)*100 | ratio:'2' }}%</td>
+         <td class="text-center">{{task.pm_number}}</td>
+         <td class="text-center">{{task.pm_total_number}}</td>
+         <td class="text-center">{{task.pm_total_number-task.am_total_number}}</td>
+         <td class="text-center">{{((task.pm_total_number-task.am_total_number)/task.pm_number)*100 | ratio:'2' }}%</td>
+         <td class="text-center">{{task.night_number}}</td>
+         <td class="text-center">{{task.night_total_number}}</td>
+         <td class="text-center">{{task.night_total_number-task.pm_total_number}}</td>
+         <td class="text-center">{{((task.night_total_number-task.pm_total_number)/task.night_number)*100 | ratio:'2' }}%</td>
+         <td class="text-center">{{task.day_total_number}}</td>
+         <td class="text-center">{{task.day_retain_number}}</td>
+         <td class="text-center">
+           <span *ngFor="let allAdmin of allAdminList">
+           {{allAdmin.admin_id==task.admin_id?allAdmin.name:''}}
+           </span>
+           </td>
+         <td class="text-center">{{task.create_date}}</td>
+         <td class="text-center">{{task.update_date}}</td>
+          <td class="text-center">
+            <!--<button class="btn btn-danger" >回复</button>-->
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+         	<button class="btn btn-warning" data-target="#myModal"  (click)="updateTask(task)">编辑</button>
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="delTask(task)">删除</button>
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListTaskValue=='添加任务' && taskList.length <= 0 && !showTaskListIcon" class="text-center alert alert-warning">
+       还没有任务，点击上面的添加任务快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListTaskValue=='添加任务'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总问题数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-task-update></main-rightbar-task-update>

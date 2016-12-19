@@ -15,17 +15,18 @@ import { ListjurisdictionComponent}   from '../main/rightbar/admin/listjurisdict
 import { ListadminComponent ,UpdateadminComponent}   from '../main/rightbar/admin/listadmin/listadmin.component';//主页右边员工列表组件
 import { PhoneComponent,UpdatephoneComponent}   from '../main/rightbar/phone/phone.component';//主页右边手机列表组件
 import { PhonenumberComponent,UpdatephonenumberComponent}   from '../main/rightbar/phonenumber/phonenumber.component';//主页右边手机号码组件
+import { ProblemComponent,UpdateproblemComponent}   from '../main/rightbar/problem/problem.component';//主页右边问题组件
+import {  TaskComponent,UpdatetaskComponent}   from '../main/rightbar/task/task.component';//主页右边任务组件
+//import {  TdataComponent}   from '../main/rightbar/tdata/tdata.component';//主页右边任务数据组件
 import { TemporaryworkComponent,UpdatetemporaryworkComponent}   from '../main/rightbar/temporarywork/temporarywork.component';//主页右边临时工作组件
-import { WebsiteComponent }   from '../main/rightbar/website/website.component';//主页右边广告页面组件
-import { AddwebsiteComponent }   from '../main/rightbar/website/addwebsite/addwebsite.component';//主页右边添加广告页面组件
-import { ListwebsiteComponent }   from '../main/rightbar/website/listwebsite/listwebsite.component';//主页右边页面列表组件
+import {  WebstatisticsComponent,UpdatewebstatisticsComponent}   from '../main/rightbar/webstatistics/webstatistics.component';//主页右网站统计组件
+import {  PromotionstatisticsComponent,UpdatepromotionstatisticsComponent}   from '../main/rightbar/promotionstatistics/promotionstatistics.component';//主页右推广统计组件
 import {PersonComponent }   from '../main/rightbar/person/person.component';//主页右边个人信息组件
-import { AdvertisementComponent }   from '../main/rightbar/advertisement/advertisement.component';//主页右边广告组件
 
 
-import { WebsiteListService } from '../service/website.service';//网站服务
-import { AdvertisementListService } from '../service/advertisement.service';//广告位服务
 import { RoleService } from '../service/role.service';//角色服务
+
+import { RatioPipe } from '../pipe/ratio.pipe';//数值管道
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { RoleService } from '../service/role.service';//角色服务
       MycommonModule
    ],
   declarations: [
+       RatioPipe,
     MainComponent,
     LeftbarComponent,
     RightbarComponent,
@@ -44,23 +46,26 @@ import { RoleService } from '../service/role.service';//角色服务
     ListroleComponent,
     ListjurisdictionComponent,
     ListadminComponent,
-    WebsiteComponent,
-    AddwebsiteComponent,
-    ListwebsiteComponent,
     UpdateadminComponent,
     PhoneComponent,
     UpdatephoneComponent,
     PhonenumberComponent,
     UpdatephonenumberComponent,
+    ProblemComponent,
+    UpdateproblemComponent,
+    TaskComponent,
+    UpdatetaskComponent,
+   // TdataComponent,
     TemporaryworkComponent,
     UpdatetemporaryworkComponent,
-    PersonComponent,
-    AdvertisementComponent
+    WebstatisticsComponent,
+    UpdatewebstatisticsComponent,
+    PromotionstatisticsComponent,
+    UpdatepromotionstatisticsComponent,
+    PersonComponent
     ],
     providers:[
-      RoleService,
-      WebsiteListService,
-      AdvertisementListService
+      RoleService
     ]
 })
 export class MainModule { 

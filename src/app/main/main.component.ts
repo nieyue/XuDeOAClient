@@ -16,17 +16,22 @@ export class MainComponent implements OnInit {
 
       constructor( private router: Router) {}
       ngOnInit(){
+            //let _this=this;
      $.get(myUtils.getDomain()+"/role/list",(rld)=>{
            if(rld&&rld.code==40001){
                  myUtils.myLoadingToast("会话过期！重新登录");
                  sessionStorage.clear();
-                 this.router.navigate(['/']);
+                 this.router.navigate(['/index']);
                  return ;
            }
          sessionStorage.setItem("roleList",JSON.stringify(rld));
            this.roleList=rld;
 
      });
+        //初始化allAdminList
+  $.get(myUtils.getDomain()+"/admin/list/all",(pld)=>{
+         sessionStorage.setItem("allAdminList",JSON.stringify(pld));
+               });
 
       }
  }

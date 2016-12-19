@@ -8,12 +8,13 @@ import { ListjurisdictionComponent }   from '../main/rightbar/admin/listjurisdic
 import { ListadminComponent }   from '../main/rightbar/admin/listadmin/listadmin.component';//主页右边员工列表组件
 import { PhoneComponent}   from '../main/rightbar/phone/phone.component';//主页右边手机列表组件
 import { PhonenumberComponent}   from '../main/rightbar/phonenumber/phonenumber.component';//主页右边手机号码组件
+import { ProblemComponent}   from '../main/rightbar/problem/problem.component';//主页右边问题组件
+import {  TaskComponent}   from '../main/rightbar/task/task.component';//主页右边任务组件
+//import {  TdataComponent}   from '../main/rightbar/tdata/tdata.component';//主页右边任务数据组件
 import { TemporaryworkComponent}   from '../main/rightbar/temporarywork/temporarywork.component';//主页右边临时工作组件
-import { WebsiteComponent }   from '../main/rightbar/website/website.component';//主页右边广告页面组件
-import { AddwebsiteComponent }   from '../main/rightbar/website/addwebsite/addwebsite.component';//主页右边添加广告页面组件
-import { ListwebsiteComponent }   from '../main/rightbar/website/listwebsite/listwebsite.component';//主页右边页面列表组件
 import {PersonComponent }   from '../main/rightbar/person/person.component';//主页右边个人信息组件
-import { AdvertisementComponent }   from '../main/rightbar/advertisement/advertisement.component';//主页右边广告组件
+import {  WebstatisticsComponent}   from '../main/rightbar/webstatistics/webstatistics.component';//主页右网站统计组件
+import {  PromotionstatisticsComponent}   from '../main/rightbar/promotionstatistics/promotionstatistics.component';//主页右推广统计组件
 
 import { RoleService } from '../service/role.service';//权限服务
 
@@ -35,9 +36,12 @@ const mainRoutes: Routes = [
 {path:'phone',component:PhoneComponent},
 
 {path:'phonenumber',component:PhonenumberComponent},
-{path:'problem',component:AdvertisementComponent},
-{path:'task',component:AdvertisementComponent},
+{path:'problem',component:ProblemComponent},
+{path:'task',component:TaskComponent},
+//{path:'tdata',component:TdataComponent},
 {path:'temporarywork',component:TemporaryworkComponent},
+{path:'webstatistics',component:WebstatisticsComponent},
+{path:'promotionstatistics',component:PromotionstatisticsComponent},
 {path:'',component:AdminComponent}
   ]}
 ];

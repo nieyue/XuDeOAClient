@@ -1,0 +1,186 @@
+<!-- 添加推广统计按钮 -->
+<br/><div class="btn btn-lg btn-primary" (click)="toggleListPromotionstatistics()"   style="margin:30px 0;" >{{toggleListPromotionstatisticsValue}}</div>
+<!-- 添加推广统计按钮end -->
+<!-- 增加推广统计 -->
+	<form [hidden]="toggleListPromotionstatisticsValue!='推广统计列表'" (ngSubmit)="savePromotionstatistics()"  novalidate #savePromotionstatisticsForm="ngForm">
+    <label class="text-info">推广时间</label>
+     <div class="comment-input-margin comment-input">
+         <div class="input-group date form_datetime"   >
+         <input class="form-control"
+           #promotion_date="ngModel"  readonly [(ngModel)]="promotionstatistics.promotion_date" name="promotion_date"
+          size="16" type="text" value="">
+					<span class="input-group-addon" style="color:red" ><span class="glyphicon glyphicon-th"></span></span>
+         </div>
+     </div>
+    
+    <label class="text-info">推广时段</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="255"
+    #period="ngModel" required [(ngModel)]="promotionstatistics.period" name="period"
+      placeholder="输入推广时段">
+      <span class="text-danger alert alert-danger " [hidden]="period.valid || period.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-255位</span>
+  </div>
+    <label class="text-info">链接</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    minlength="1" maxlength="255"
+    #link="ngModel" required [(ngModel)]="promotionstatistics.link" name="link"
+      placeholder="输入网站url">
+      <span class="text-danger alert alert-danger " [hidden]="link.valid || link.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-255位</span>
+  </div>
+    <label class="text-info">朋友圈用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #friend_circle="ngModel" required [(ngModel)]="promotionstatistics.friend_circle" name="friend_circle"
+      placeholder="输入朋友圈用户">
+      <span class="text-danger alert alert-danger " [hidden]="friend_circle.valid || friend_circle.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">微信群用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #wechat_group="ngModel" required [(ngModel)]="promotionstatistics.wechat_group" name="wechat_group"
+      placeholder="输入微信群用户">
+      <span class="text-danger alert alert-danger " [hidden]="wechat_group.valid || wechat_group.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">点对点用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #point="ngModel" required [(ngModel)]="promotionstatistics.point" name="point"
+      placeholder="输入点对点用户">
+      <span class="text-danger alert alert-danger " [hidden]="point.valid || point.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">QQ群</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #qq_group="ngModel" required [(ngModel)]="promotionstatistics.qq_group" name="qq_group"
+      placeholder="输入QQ群">
+      <span class="text-danger alert alert-danger " [hidden]="qq_group.valid || qq_group.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">QQ点对点</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #qq_point="ngModel" required [(ngModel)]="promotionstatistics.qq_point" name="qq_point"
+      placeholder="输入QQ点对点">
+      <span class="text-danger alert alert-danger " [hidden]="qq_point.valid || qq_point.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">陌陌用户</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #momo="ngModel" required [(ngModel)]="promotionstatistics.momo" name="momo"
+      placeholder="输入陌陌用户">
+      <span class="text-danger alert alert-danger " [hidden]="momo.valid || momo.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">推广用户合计</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #total="ngModel" required [(ngModel)]="promotionstatistics.total" name="total"
+      placeholder="输入推广用户合计">
+      <span class="text-danger alert alert-danger " [hidden]="total.valid || total.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">当日uv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #days_uv="ngModel" required [(ngModel)]="promotionstatistics.days_uv" name="days_uv"
+      placeholder="输入当日uv">
+      <span class="text-danger alert alert-danger " [hidden]="days_uv.valid || days_uv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+    <label class="text-info">当日pv</label>
+  <div class=" comment-input-margin">
+    <input type="text" class=" comment-input"
+    pattern="^(-|\+)?\d{1,11}$"
+    #days_pv="ngModel" required [(ngModel)]="promotionstatistics.days_pv" name="days_pv"
+      placeholder="输入当日pv">
+      <span class="text-danger alert alert-danger " [hidden]="days_pv.valid || days_pv.pristine"><i class="glyphicon glyphicon-info-sign"></i>1-11位数字</span>
+  </div>
+  
+  <div class="comment-input-margin" style="margin-top:50px;">
+  <button type="submit" class="btn btn-lg btn-info" [disabled]=" !savePromotionstatisticsForm.valid " >保存提交</button>
+  </div>
+</form>
+<!-- 增加推广统计 end-->
+
+<!-- 页面列表 -->
+<div class='loadAnimation' *ngIf="showPromotionstatisticsListIcon" style='z-index:99999'><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<table class="table text-center table-striped"  style="border:2px solid #999;box-shadow:0 0 10px #999;" *ngIf="toggleListPromotionstatisticsValue=='添加推广统计' && promotionstatisticsList.length > 0  && !showPromotionstatisticsListIcon " >
+
+ <thead>
+      <tr > 
+         <th class="text-center">序号</th>
+         <th class="text-center">推广时间</th>
+         <th class="text-center">推广时段</th>
+         <th class="text-center">链接</th>
+         <th class="text-center">朋友圈用户</th>
+         <th class="text-center">微信群用户</th>
+         <th class="text-center">点对点用户</th>
+         <th class="text-center">QQ群</th>
+         <th class="text-center">QQ点对点</th>
+         <th class="text-center">陌陌用户</th>
+         <th class="text-center">推广用户合计</th>
+         <th class="text-center">当日pv</th>
+         <th class="text-center">当日uv</th>
+         <th class="text-center">人均pv</th>
+         <th class="text-center">每个pv成本</th>
+         <th class="text-center">创建时间</th>
+         <th class="text-center">操作</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr  *ngFor="let promotionstatistics of promotionstatisticsList;let index=index" > 
+        <td class="text-center">{{(currentPage-1)*pageNumber+index+1}}</td>
+         <td class="text-center">{{promotionstatistics.promotion_date | date:'yyyy-MM-dd'}}</td>
+         <td class="text-center">{{promotionstatistics.period}}</td>
+         <td class="text-center">{{promotionstatistics.link}}</td>
+         <td class="text-center">{{promotionstatistics.friend_circle}}</td>
+         <td class="text-center">{{promotionstatistics.wechat_group}}</td>
+         <td class="text-center">{{promotionstatistics.point}}</td>
+         <td class="text-center">{{promotionstatistics.qq_group}}</td>
+         <td class="text-center">{{promotionstatistics.qq_point}}</td>
+         <td class="text-center">{{promotionstatistics.momo}}</td>
+         <td class="text-center">{{promotionstatistics.total}}</td>
+         <td class="text-center">{{promotionstatistics.days_pv}}</td>
+         <td class="text-center">{{promotionstatistics.days_uv}}</td>
+         <td class="text-center">{{promotionstatistics.days_per_pv}}</td>
+         <td class="text-center">{{promotionstatistics.days_per_pv_cost}}</td>
+         <td class="text-center">{{promotionstatistics.create_date }}</td>
+          <td class="text-center">
+              <!--只显示当前用户的角色 ，如果为 普通员工 则禁用-->
+           <div *ngFor="let role of roleList">
+         	<button class="btn btn-warning" data-target="#myModal" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="updatePromotionstatistics(promotionstatistics)">编辑</button>
+         	<button class="btn btn-danger" *ngIf="sessionAdmin.role_id==role.role_id && role.name!='普通员工'" (click)="delPromotionstatistics(promotionstatistics)">删除</button>
+            <div *ngIf="sessionAdmin.role_id==role.role_id && role.name=='普通员工'" class="alert alert-danger">无操作权限</div>
+         </div>
+         </td>
+      </tr>
+     
+   </tbody>
+</table>
+<!-- 页面列表end -->
+
+<div *ngIf="toggleListPromotionstatisticsValue=='添加推广统计' &&  promotionstatisticsList.length <= 0 && !showPromotionstatisticsListIcon" class="text-center alert alert-warning">
+       还没有推广统计，点击上面的添加推广统计快速添加吧！
+   </div>
+<!-- 加载更多end -->
+   <div *ngIf="toggleListPromotionstatisticsValue=='添加推广统计'" >
+    <ul class="pagination " >
+    <li><a (click)="toPage('首页')" >首页</a></li>
+    <li class="previous" ><a (click)="toPage('previous')" >&larr;</a></li>
+
+    <li *ngFor="let currentPageNumber of showPageNumberArray"><a (click)="toPage(currentPageNumber)" [ngClass]="{active:currentPageNumber==currentPage}">{{currentPageNumber}}</a></li>
+
+    <li class="next"  ><a (click)="toPage('next')" >&rarr;</a></li>
+    <li><a (click)="toPage('尾页')" >尾页</a></li>
+    <li> <span>总页数：{{totalPage}}</span></li>
+    <li><span>总推广统计数：{{totalNumber}}</span></li>
+    </ul>
+   </div>
+<!--  加载更多end -->
+<main-rightbar-promotionstatistics-update></main-rightbar-promotionstatistics-update>
