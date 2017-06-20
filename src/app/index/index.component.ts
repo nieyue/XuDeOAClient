@@ -45,7 +45,7 @@ ngOnInit(){
 
    
     loginValue="登录";
-    backGray:string;
+   // backGray:string;
     loginDisabled:boolean=false;
    //登录
    login(){

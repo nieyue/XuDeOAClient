@@ -17,14 +17,14 @@ import { PhoneComponent,UpdatephoneComponent}   from '../main/rightbar/phone/pho
 import { PhonenumberComponent,UpdatephonenumberComponent}   from '../main/rightbar/phonenumber/phonenumber.component';//主页右边手机号码组件
 import { ProblemComponent,UpdateproblemComponent}   from '../main/rightbar/problem/problem.component';//主页右边问题组件
 import {  TaskComponent,UpdatetaskComponent}   from '../main/rightbar/task/task.component';//主页右边任务组件
-//import {  TdataComponent}   from '../main/rightbar/tdata/tdata.component';//主页右边任务数据组件
 import { TemporaryworkComponent,UpdatetemporaryworkComponent}   from '../main/rightbar/temporarywork/temporarywork.component';//主页右边临时工作组件
 import {  WebstatisticsComponent,UpdatewebstatisticsComponent}   from '../main/rightbar/webstatistics/webstatistics.component';//主页右网站统计组件
 import {  PromotionstatisticsComponent,UpdatepromotionstatisticsComponent}   from '../main/rightbar/promotionstatistics/promotionstatistics.component';//主页右推广统计组件
 import {PersonComponent }   from '../main/rightbar/person/person.component';//主页右边个人信息组件
 
 
-import { RoleService } from '../service/role.service';//角色服务
+//import { RoleService } from '../service/role.service';//角色服务
+
 
 import { RatioPipe } from '../pipe/ratio.pipe';//数值管道
 
@@ -55,7 +55,6 @@ import { RatioPipe } from '../pipe/ratio.pipe';//数值管道
     UpdateproblemComponent,
     TaskComponent,
     UpdatetaskComponent,
-   // TdataComponent,
     TemporaryworkComponent,
     UpdatetemporaryworkComponent,
     WebstatisticsComponent,
@@ -63,10 +62,10 @@ import { RatioPipe } from '../pipe/ratio.pipe';//数值管道
     PromotionstatisticsComponent,
     UpdatepromotionstatisticsComponent,
     PersonComponent
-    ],
-    providers:[
-      RoleService
     ]
+    // , providers:[
+    //   RoleService
+    // ]
 })
 export class MainModule { 
   

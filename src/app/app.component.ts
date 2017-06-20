@@ -16,7 +16,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl:'app.component.html'
 })
 export class AppComponent implements  OnInit{
-  constructor(private router:Router){}
+  constructor(public router:Router){}
   ngOnInit(){
     let _this=this;
 　　$.ajaxSetup({

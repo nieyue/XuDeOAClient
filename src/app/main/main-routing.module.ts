@@ -10,16 +10,17 @@ import { PhoneComponent}   from '../main/rightbar/phone/phone.component';//主�
 import { PhonenumberComponent}   from '../main/rightbar/phonenumber/phonenumber.component';//主页右边手机号码组件
 import { ProblemComponent}   from '../main/rightbar/problem/problem.component';//主页右边问题组件
 import {  TaskComponent}   from '../main/rightbar/task/task.component';//主页右边任务组件
-//import {  TdataComponent}   from '../main/rightbar/tdata/tdata.component';//主页右边任务数据组件
 import { TemporaryworkComponent}   from '../main/rightbar/temporarywork/temporarywork.component';//主页右边临时工作组件
 import {PersonComponent }   from '../main/rightbar/person/person.component';//主页右边个人信息组件
 import {  WebstatisticsComponent}   from '../main/rightbar/webstatistics/webstatistics.component';//主页右网站统计组件
 import {  PromotionstatisticsComponent}   from '../main/rightbar/promotionstatistics/promotionstatistics.component';//主页右推广统计组件
 
 import { RoleService } from '../service/role.service';//权限服务
+import { AuthLoginService }   from '../service/authlogin.service';//是否登录服务
 
 const mainRoutes: Routes = [ 
      { path: '' ,component: MainComponent,
+  canActivate: [AuthLoginService],
   children:[
 {path:'person',component:PersonComponent},
 {path:'admin',component:AdminComponent
@@ -38,7 +39,6 @@ const mainRoutes: Routes = [
 {path:'phonenumber',component:PhonenumberComponent},
 {path:'problem',component:ProblemComponent},
 {path:'task',component:TaskComponent},
-//{path:'tdata',component:TdataComponent},
 {path:'temporarywork',component:TemporaryworkComponent},
 {path:'webstatistics',component:WebstatisticsComponent},
 {path:'promotionstatistics',component:PromotionstatisticsComponent},
